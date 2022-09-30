@@ -1,11 +1,12 @@
-import cv2
+import copy
 import json
-import numpy as np
+import traceback
 from glob import glob
 from pathlib import Path
+
+import cv2
+import numpy as np
 from sonic.utils_func import make_dirs
-import traceback
-import copy
 
 
 def rotate(input_path, output_path):

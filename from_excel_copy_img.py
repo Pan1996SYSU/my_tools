@@ -1,15 +1,15 @@
-import pandas as pd
-from pathlib import Path
 import os
 import shutil
+from pathlib import Path
 
-df = pd.read_excel('瑞浦顶盖焊.xls', sheet_name='NG',usecols='a')
+import pandas as pd
+
+df = pd.read_excel('瑞浦顶盖焊.xls', sheet_name='NG', usecols='a')
 output_path = r'D:\桌面\NG'
 buffer_size = 102400
 
-
 mylist = df.values.tolist()
-img_path_list=[]
+img_path_list = []
 for i in mylist:
     img_path_list.append(i[0])
 

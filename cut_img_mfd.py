@@ -1,9 +1,10 @@
 import json
-import numpy as np
-from glob import glob
 import os
-import cv2
+from glob import glob
 from pathlib import Path
+
+import cv2
+import numpy as np
 
 img_path = r'C:\Users\cys01\Desktop\密封钉裁图\input'
 predict_json = r'C:\Users\cys01\Desktop\密封钉裁图\predict'

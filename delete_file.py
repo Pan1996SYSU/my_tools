@@ -1,11 +1,13 @@
-from glob import glob
 import os
+from glob import glob
+
 input_path = r'D:\桌面\pth'
+
 
 def del_files(dir_path):
     if os.path.isfile(dir_path):
         try:
-            os.remove(dir_path) # 这个可以删除单个文件，不能删除文件夹
+            os.remove(dir_path)  # 这个可以删除单个文件，不能删除文件夹
         except BaseException as e:
             print(e)
     elif os.path.isdir(dir_path):
@@ -14,6 +16,7 @@ def del_files(dir_path):
             tf = os.path.join(dir_path, file_name)
             del_files(tf)
     print('ok')
+
 
 path_list = glob(f'{input_path}/**/侧面1', recursive=True)
 for path in path_list:

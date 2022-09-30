@@ -90,7 +90,6 @@ def mfd_transformation(tasks):
 
         max_index = score_list.index(max(score_list))
 
-
         try:
             bbox = json_lum["result"][max_index]["bbox"]
             category_name = json_lum["result"][max_index]["category_name"]
@@ -131,9 +130,9 @@ def mfd_transformation(tasks):
                     img_h, 200, 200, 200, 200, cv2.BORDER_REPLICATE)
 
                 img_lum_res = img_lum_mb[y - lum_radius:y + lum_radius,
-                              x - lum_radius:x + lum_radius].copy()
+                                         x - lum_radius:x + lum_radius].copy()
                 img_h_res = img_h_mb[y - lum_radius:y + lum_radius,
-                            x - lum_radius:x + lum_radius].copy()
+                                     x - lum_radius:x + lum_radius].copy()
                 img_2d_res = img_2d[y0:y1, x0:x1]
 
                 h_res, w_res = img_lum_res.shape[:2]

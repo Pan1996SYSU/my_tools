@@ -1,5 +1,5 @@
 from glob import glob
-from pathlib import Path
+
 import numpy as np
 from sonic.utils_func import load_json
 
@@ -40,6 +40,5 @@ print(df.describe())
 df.plot.box(title="Box Chart")
 plt.grid(linestyle="--", alpha=0.3)
 plt.show()
-
 
 print('ok')

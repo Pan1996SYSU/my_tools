@@ -1,5 +1,6 @@
 import json
 from glob import glob
+
 import pandas as pd
 
 input_path = r"D:\桌面\密封钉数据分析\20220821-185055_CYS.220301-密封钉检测3D_旋转_raw-OK\NG"
@@ -16,10 +17,14 @@ for json_data in json_data_list:
     img_name = json_data['img_name']
     results_data = []
     for result in json_data["result"]:
-        r_data = [result['category_name'], result['area'], result['bbox'][0], result['bbox'][1], result['bbox'][2], result['bbox'][3],
-                  result['center_distance'], result['delta'], result['height'], result['max_area'],
-                  result['mean_foreground'], result['min_height'], result['min_width'], result['score'],
-                  result['volume'], result['width'], img_name]
+        r_data = [
+            result['category_name'], result['area'], result['bbox'][0],
+            result['bbox'][1], result['bbox'][2], result['bbox'][3],
+            result['center_distance'], result['delta'], result['height'],
+            result['max_area'], result['mean_foreground'],
+            result['min_height'], result['min_width'], result['score'],
+            result['volume'], result['width'], img_name
+        ]
         category_name_set.add(result['category_name'][:2])
         results_data.append(r_data)
     if len(category_name_set) == 1:
@@ -56,11 +61,6 @@ for json_data in json_data_list:
 # file_path.save()
 
 data_2D3D = pd.DataFrame(data=excel_2D3D)
-file_path = pd.ExcelWriter(
-    f'D:/桌面/test/OK/2D3D汇总.xlsx')
-data_2D3D.to_excel(
-    file_path,
-    sheet_name='OK',
-    encoding='utf-8',
-    index=False)
+file_path = pd.ExcelWriter(f'D:/桌面/test/OK/2D3D汇总.xlsx')
+data_2D3D.to_excel(file_path, sheet_name='OK', encoding='utf-8', index=False)
 file_path.save()

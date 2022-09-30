@@ -1,10 +1,11 @@
-from glob import glob
+import os
 import shutil
+import traceback
+from glob import glob
 from multiprocessing.pool import ThreadPool
 from pathlib import Path
-import os
+
 from sonic.utils_func import make_dirs, save_json, load_json
-import traceback
 
 buffer_size = 102400
 thread_num = 16
