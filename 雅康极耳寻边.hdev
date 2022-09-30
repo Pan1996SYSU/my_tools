@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.1.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>read_image (Image0909000218217213Ng, 'D:/桌面/20220909-极耳定位AI误判/09_09_01_42_52_370.102_NG.bmp')</l>
+<l>decompose3 (Image0909000218217213Ng, Image1, Image2, Image3)</l>
+<l>threshold (Image1, Regions, 129, 255)</l>
+<l>complement (Regions, RegionComplement)</l>
+<l>connection (RegionComplement, ConnectedRegions)</l>
+<l>select_shape (ConnectedRegions, SelectedRegions, 'area', 'and', 500000, 2000000)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
