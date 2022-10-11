@@ -30,8 +30,8 @@ for img_path in img_path_list:
         rect = cv2.minAreaRect(contours[index])
         crop_img = img[y:y + h, x:x + w].copy()
         if h >= 300:
-            left_mean = crop_img[150:300, 0:w//2].mean()
-            right_mean = crop_img[150:300, w//2:w].mean()
+            left_mean = crop_img[150:300, 0:w // 2].mean()
+            right_mean = crop_img[150:300, w // 2:w].mean()
             if right_mean < left_mean:
                 crop_img = cv2.flip(crop_img, 1)
             h_crop, w_crop = crop_img.shape[:2]
@@ -45,8 +45,7 @@ for img_path in img_path_list:
             output_img_path_all_name = output_img_path.name
             output_img_path_name = output_img_path_all_name.split('.')[0]
 
-            cv2.imencode(
-                suffix, crop_up_img)[1].tofile(f'{output_img_path_parent}/{output_img_path_name}_A{suffix}')
-            cv2.imencode(
-                suffix,
-                crop_down_img)[1].tofile(f'{output_img_path_parent}/{output_img_path_name}_B{suffix}')
+            cv2.imencode(suffix, crop_up_img)[1].tofile(
+                f'{output_img_path_parent}/{output_img_path_name}_A{suffix}')
+            cv2.imencode(suffix, crop_down_img)[1].tofile(
+                f'{output_img_path_parent}/{output_img_path_name}_B{suffix}')
