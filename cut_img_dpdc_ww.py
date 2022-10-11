@@ -8,7 +8,7 @@ from sonic.utils_func import glob_extensions, cv_img_read
 左下电池x1，y1（200, 575） x2，y2（1000， 1175）
 '''
 
-input_path = r'D:\桌面\pth'
+input_path = r'D:\桌面\无为-2D-虚焊'
 output_path = r'D:\桌面\img'
 img_path_list = glob_extensions(input_path)
 
@@ -16,7 +16,7 @@ for img_path in img_path_list:
     img_path = Path(img_path)
     suffix = img_path.suffix
     img = cv_img_read(img_path)
-    ret, binary_img = cv2.threshold(img, 88, 255, cv2.THRESH_BINARY)
+    ret, binary_img = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
     contours, hierarchy = cv2.findContours(
         binary_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     target_index = []
@@ -30,8 +30,8 @@ for img_path in img_path_list:
         rect = cv2.minAreaRect(contours[index])
         crop_img = img[y:y + h, x:x + w].copy()
         if h >= 300:
-            left_mean = crop_img[150:300, 0:w//2]
-            right_mean = crop_img[150:300, w//2:w]
+            left_mean = crop_img[150:300, 0:w//2].mean()
+            right_mean = crop_img[150:300, w//2:w].mean()
             if right_mean < left_mean:
                 crop_img = cv2.flip(crop_img, 1)
             h_crop, w_crop = crop_img.shape[:2]
