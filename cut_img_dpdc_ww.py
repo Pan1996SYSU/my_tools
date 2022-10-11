@@ -8,7 +8,8 @@ from sonic.utils_func import glob_extensions, cv_img_read
 左下电池x1，y1（200, 575） x2，y2（1000， 1175）
 '''
 
-input_path = r'D:\桌面\img'
+input_path = r'D:\桌面\无为-2D-虚焊'
+output_path = r'D:\桌面\img'
 img_path_list = glob_extensions(input_path)
 
 for img_path in img_path_list:
@@ -25,4 +26,7 @@ for img_path in img_path_list:
     for index in target_index:
         x, y, w, h = cv2.boundingRect(contours[index])
         crop_img = img[y:y + h, x:x + w].copy()
-        cv2.imencode('.tiff', crop_img)[1].tofile(fr'D:\桌面\{index}.tiff')
+        h_crop, w_crop = crop_img.shape[:2]
+        if w_crop >= 1740 and h_crop >= 1175:
+
+
