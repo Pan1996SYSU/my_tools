@@ -28,7 +28,6 @@ for img_path in img_path_list:
         x, y, w, h = cv2.boundingRect(contours[target_index[0]])
         test_img = img[y:y + h, x:x + w].copy()
         test_h, test_w = test_img.shape[:2]
-        
 
     for index in target_index:
         x, y, w, h = cv2.boundingRect(contours[index])
@@ -37,10 +36,12 @@ for img_path in img_path_list:
         if w_crop >= 1740 and h_crop >= 1175:
             crop_up_img = crop_img[10:610, 940:1740].copy()
             crop_down_img = crop_img[575:1175, 200:1000].copy()
-            output_img_path = Path(output_path, Path(img_path).relative_to(Path(input_path)))
+            output_img_path = Path(
+                output_path,
+                Path(img_path).relative_to(Path(input_path)))
             output_img_path = output_img_path.rsplit('.', 1)
-            cv2.imencode(suffix, crop_up_img)[1].tofile(f'{output_img_path}_A{suffix}')
-            cv2.imencode(suffix, crop_down_img)[1].tofile(f'{output_img_path}_B{suffix}')
-
-
-
+            cv2.imencode(
+                suffix, crop_up_img)[1].tofile(f'{output_img_path}_A{suffix}')
+            cv2.imencode(
+                suffix,
+                crop_down_img)[1].tofile(f'{output_img_path}_B{suffix}')
