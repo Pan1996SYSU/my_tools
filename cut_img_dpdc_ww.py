@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from dpdc_parameters import line_5, line_6, line_7, line_8, line_9
 import cv2
 from sonic.utils_func import glob_extensions, cv_img_read, show_img, make_dirs
 
@@ -59,8 +59,8 @@ for img_path in img_path_list:
         #         y1_down = 625
         #         x2_down = 1675
         #         y2_down = 1225
-        #         w_max = 1675
-        #         h_max = 1225
+        #         w_max = x2_down
+        #         h_max = y2_down
         #     else:
         #         # 为行列式负方向
         #         x1_up = 940
@@ -71,8 +71,8 @@ for img_path in img_path_list:
         #         y1_down = 575
         #         x2_down = 1000
         #         y2_down = 1175
-        #         w_max = 1740
-        #         h_max = 1175
+        #         w_max = x2_up
+        #         h_max = y2_down
         #     h_crop, w_crop = crop_img.shape[:2]
         # if w_crop >= w_max and h_crop >= h_max:
         #     crop_up_img = crop_img[y1_up:y2_up, x1_up:x2_up].copy()
