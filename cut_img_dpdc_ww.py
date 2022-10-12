@@ -46,6 +46,6 @@ for img_path in img_path_list:
             output_img_path_name = output_img_path_all_name.split('.')[0]
 
             cv2.imencode(suffix, crop_up_img)[1].tofile(
-                f'{output_img_path_parent}/{output_img_path_name}_A{suffix}')
+                f'{output_img_path_parent}/{output_img_path_name}_{index}_A{suffix}')
             cv2.imencode(suffix, crop_down_img)[1].tofile(
-                f'{output_img_path_parent}/{output_img_path_name}_B{suffix}')
+                f'{output_img_path_parent}/{output_img_path_name}_{index}_B{suffix}')
