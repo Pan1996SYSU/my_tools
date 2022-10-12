@@ -36,46 +36,56 @@ for img_path in img_path_list:
         x, y, w, h = cv2.boundingRect(contours[index])
         rect = cv2.minAreaRect(contours[index])
         crop_img = img[y:y + h, x:x + w].copy()
-        if h >= 300:
-            left_mean = crop_img[150:300, 0:w // 2].mean()
-            right_mean = crop_img[150:300, w // 2:w].mean()
-            if right_mean < left_mean:
-                # 为行列式正方向
-                x1_up = 110
-                y1_up = 30
-                x2_up = 910
-                y2_up = 630
-                x1_down = 875
-                y1_down = 625
-                x2_down = 1675
-                y2_down = 1225
-                w_max = 1675
-                h_max = 1225
-            else:
-                # 为行列式负方向
-                x1_up = 940
-                y1_up = 10
-                x2_up = 1740
-                y2_up = 610
-                x1_down = 200
-                y1_down = 575
-                x2_down = 1000
-                y2_down = 1175
-                w_max = 1740
-                h_max = 1175
-            h_crop, w_crop = crop_img.shape[:2]
-        if w_crop >= w_max and h_crop >= h_max:
-            crop_up_img = crop_img[y1_up:y2_up, x1_up:x2_up].copy()
-            crop_down_img = crop_img[y1_down:y2_down, x1_down:x2_down].copy()
-            output_img_path = Path(
-                output_path,
-                Path(img_path).relative_to(Path(input_path)))
-            output_img_path_parent = output_img_path.parent
-            make_dirs(output_img_path_parent)
-            output_img_path_all_name = output_img_path.name
-            output_img_path_name = output_img_path_all_name.split('.')[0]
+        output_img_path = Path(
+            output_path,
+            Path(img_path).relative_to(Path(input_path)))
+        output_img_path_parent = output_img_path.parent
+        make_dirs(output_img_path_parent)
+        output_img_path_all_name = output_img_path.name
+        output_img_path_name = output_img_path_all_name.split('.')[0]
+        cv2.imencode(suffix, crop_img)[1].tofile(
+            f'{output_img_path_parent}/{output_img_path_name}_{index}{suffix}')
 
-            cv2.imencode(suffix, crop_up_img)[1].tofile(
-                f'{output_img_path_parent}/{output_img_path_name}_{index}_A{suffix}')
-            cv2.imencode(suffix, crop_down_img)[1].tofile(
-                f'{output_img_path_parent}/{output_img_path_name}_{index}_B{suffix}')
+        # if h >= 300:
+        #     left_mean = crop_img[150:300, 0:w // 2].mean()
+        #     right_mean = crop_img[150:300, w // 2:w].mean()
+        #     if right_mean < left_mean:
+        #         # 为行列式正方向
+        #         x1_up = 110
+        #         y1_up = 30
+        #         x2_up = 910
+        #         y2_up = 630
+        #         x1_down = 875
+        #         y1_down = 625
+        #         x2_down = 1675
+        #         y2_down = 1225
+        #         w_max = 1675
+        #         h_max = 1225
+        #     else:
+        #         # 为行列式负方向
+        #         x1_up = 940
+        #         y1_up = 10
+        #         x2_up = 1740
+        #         y2_up = 610
+        #         x1_down = 200
+        #         y1_down = 575
+        #         x2_down = 1000
+        #         y2_down = 1175
+        #         w_max = 1740
+        #         h_max = 1175
+        #     h_crop, w_crop = crop_img.shape[:2]
+        # if w_crop >= w_max and h_crop >= h_max:
+        #     crop_up_img = crop_img[y1_up:y2_up, x1_up:x2_up].copy()
+        #     crop_down_img = crop_img[y1_down:y2_down, x1_down:x2_down].copy()
+        #     output_img_path = Path(
+        #         output_path,
+        #         Path(img_path).relative_to(Path(input_path)))
+        #     output_img_path_parent = output_img_path.parent
+        #     make_dirs(output_img_path_parent)
+        #     output_img_path_all_name = output_img_path.name
+        #     output_img_path_name = output_img_path_all_name.split('.')[0]
+        #
+        #     cv2.imencode(suffix, crop_up_img)[1].tofile(
+        #         f'{output_img_path_parent}/{output_img_path_name}_{index}_A{suffix}')
+        #     cv2.imencode(suffix, crop_down_img)[1].tofile(
+        #         f'{output_img_path_parent}/{output_img_path_name}_{index}_B{suffix}')
