@@ -1,7 +1,8 @@
 from pathlib import Path
 
 import cv2
-from sonic.utils_func import glob_extensions, cv_img_read, show_img
+from sonic.utils_func import glob_extensions, cv_img_read, show_img, make_dirs
+
 '''
 行列式负方向
 600*800
@@ -14,7 +15,7 @@ from sonic.utils_func import glob_extensions, cv_img_read, show_img
 右下电池x1，y1（875, 625） x2，y2（1675， 1225）
 '''
 
-input_path = r'D:\桌面\无为-2D-虚焊'
+input_path = r'D:\桌面\20220930-NG图'
 output_path = r'D:\桌面\img'
 img_path_list = glob_extensions(input_path)
 
@@ -70,6 +71,7 @@ for img_path in img_path_list:
                 output_path,
                 Path(img_path).relative_to(Path(input_path)))
             output_img_path_parent = output_img_path.parent
+            make_dirs(output_img_path_parent)
             output_img_path_all_name = output_img_path.name
             output_img_path_name = output_img_path_all_name.split('.')[0]
 
