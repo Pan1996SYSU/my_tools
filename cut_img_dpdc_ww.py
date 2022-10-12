@@ -14,7 +14,7 @@ from sonic.utils_func import glob_extensions, cv_img_read, show_img
 右下电池x1，y1（875, 625） x2，y2（1675， 1225）
 '''
 
-input_path = r'D:\桌面\pth'
+input_path = r'D:\桌面\无为-2D-虚焊'
 output_path = r'D:\桌面\img'
 img_path_list = glob_extensions(input_path)
 
@@ -23,7 +23,6 @@ for img_path in img_path_list:
     suffix = img_path.suffix
     img = cv_img_read(img_path)
     ret, binary_img = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
-    binary_img = cv2.morphologyEx(binary_img, cv2.MORPH_CLOSE, (25, 25))
     contours, hierarchy = cv2.findContours(
         binary_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     target_index = []
@@ -40,11 +39,33 @@ for img_path in img_path_list:
             left_mean = crop_img[150:300, 0:w // 2].mean()
             right_mean = crop_img[150:300, w // 2:w].mean()
             if right_mean < left_mean:
-                crop_img = cv2.flip(crop_img, 1)
+                # 为行列式正方向
+                x1_up = 110
+                y1_up = 30
+                x2_up = 910
+                y2_up = 630
+                x1_down = 875
+                y1_down = 625
+                x2_down = 1675
+                y2_down = 1225
+                w_max = 1675
+                h_max = 1225
+            else:
+                # 为行列式负方向
+                x1_up = 940
+                y1_up = 10
+                x2_up = 1740
+                y2_up = 610
+                x1_down = 200
+                y1_down = 575
+                x2_down = 1000
+                y2_down = 1175
+                w_max = 1740
+                h_max = 1175
             h_crop, w_crop = crop_img.shape[:2]
-        if w_crop >= 1740 and h_crop >= 1175:
-            crop_up_img = crop_img[10:610, 940:1740].copy()
-            crop_down_img = crop_img[575:1175, 200:1000].copy()
+        if w_crop >= w_max and h_crop >= h_max:
+            crop_up_img = crop_img[y1_up:y2_up, x1_up:x2_up].copy()
+            crop_down_img = crop_img[y1_down:y2_down, x1_down:x2_down].copy()
             output_img_path = Path(
                 output_path,
                 Path(img_path).relative_to(Path(input_path)))
