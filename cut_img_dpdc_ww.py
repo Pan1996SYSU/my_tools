@@ -29,7 +29,7 @@ for img_path in img_path_list:
     target_index = []
     for i, cnt in enumerate(contours):
         cnt_area = cv2.contourArea(cnt)
-        if 1000000 <= cnt_area <= 2000000:
+        if 900000 <= cnt_area <= 2000000:
             target_index.append(i)
 
     for index in target_index:
