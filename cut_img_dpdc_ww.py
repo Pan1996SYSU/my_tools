@@ -2,7 +2,6 @@ from pathlib import Path
 from dpdc_parameters import line_5, line_6, line_7, line_8, line_9
 import cv2
 from sonic.utils_func import glob_extensions, cv_img_read, show_img, make_dirs
-
 '''
 行列式负方向
 600*800

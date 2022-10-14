@@ -3,62 +3,32 @@
 """
 
 line_5 = {
+    'crop_region_negative': [],
+    'crop_region_positive': [],
     'threshold_negative': [78, 255],
     'threshold_positive': [119, 255],
-    'negative_star_direction': [],
-    'negative_end_direction': [],
-    'negative_direction_A': [],
-    'negative_direction_B': [],
-    'positive_star_direction': [],
-    'positive_end_direction': [],
-    'positive_direction_A': [],
-    'positive_direction_B': []
 }
 line_6 = {
+    'crop_region_negative': [],
+    'crop_region_positive': [],
     'threshold_negative': [],
     'threshold_positive': [],
-    'negative_star_direction': [],
-    'negative_end_direction': [],
-    'negative_direction_A': [],
-    'negative_direction_B': [],
-    'positive_star_direction': [],
-    'positive_end_direction': [],
-    'positive_direction_A': [],
-    'positive_direction_B': []
 }
 line_7 = {
+    'crop_region_negative': [],
+    'crop_region_positive': [],
     'threshold_negative': [],
     'threshold_positive': [],
-    'negative_star_direction': [],
-    'negative_end_direction': [],
-    'negative_direction_A': [],
-    'negative_direction_B': [],
-    'positive_star_direction': [],
-    'positive_end_direction': [],
-    'positive_direction_A': [],
-    'positive_direction_B': []
 }
 line_8 = {
+    'crop_region_negative': [],
+    'crop_region_positive': [],
     'threshold_negative': [],
     'threshold_positive': [],
-    'negative_star_direction': [],
-    'negative_end_direction': [],
-    'negative_direction_A': [],
-    'negative_direction_B': [],
-    'positive_star_direction': [],
-    'positive_end_direction': [],
-    'positive_direction_A': [],
-    'positive_direction_B': []
 }
 line_9 = {
+    'crop_region_negative': [],
+    'crop_region_positive': [],
     'threshold_negative': [],
     'threshold_positive': [],
-    'negative_star_direction': [],
-    'negative_end_direction': [],
-    'negative_direction_A': [],
-    'negative_direction_B': [],
-    'positive_star_direction': [],
-    'positive_end_direction': [],
-    'positive_direction_A': [],
-    'positive_direction_B': []
 }
