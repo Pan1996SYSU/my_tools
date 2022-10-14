@@ -1,7 +1,8 @@
 from pathlib import Path
-from dpdc_parameters import line_5, line_6, line_7, line_8, line_9
+
+# from dpdc_parameters import line_5, line_6, line_7, line_8, line_9
 import cv2
-from sonic.utils_func import glob_extensions, cv_img_read, show_img, make_dirs
+from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
 
 flow_line = 5
 input_path = r'D:\桌面\20220930-NG图'
