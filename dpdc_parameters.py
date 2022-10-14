@@ -1,6 +1,6 @@
-'''
+"""
 y, x, r
-'''
+"""
 line_5 = {
     'template_img_left_region': [1301.84, 565.435, 91.8908],
     'template_img_right_region': [752.368, 1671.85, 85.6912],
