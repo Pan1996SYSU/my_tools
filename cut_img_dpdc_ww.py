@@ -2,18 +2,8 @@ from pathlib import Path
 from dpdc_parameters import line_5, line_6, line_7, line_8, line_9
 import cv2
 from sonic.utils_func import glob_extensions, cv_img_read, show_img, make_dirs
-'''
-行列式负方向
-600*800
-右上电池x1，y1（940, 10） x2，y2（1740， 610）
-左下电池x1，y1（200, 575） x2，y2（1000， 1175）
 
-行列式正方向
-600*800
-左上电池x1，y1（110, 30） x2，y2（910， 630）
-右下电池x1，y1（875, 625） x2，y2（1675， 1225）
-'''
-
+flow_line = 5
 input_path = r'D:\桌面\20220930-NG图'
 output_path = r'D:\桌面\img'
 img_path_list = glob_extensions(input_path)
