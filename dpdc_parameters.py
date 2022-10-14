@@ -1,34 +1,20 @@
-"""
-5号负方向流水线需先把图像顺时针旋转1.7度
-"""
-
 line_5 = {
-    'crop_region_negative': [],
-    'crop_region_positive': [],
-    'threshold_negative': [],
-    'threshold_positive': [],
+    'template_img_left_region': [],
+    'template_img_right_region': [],
 }
 line_6 = {
-    'crop_region_negative': [],
-    'crop_region_positive': [],
-    'threshold_negative': [],
-    'threshold_positive': [],
+    'template_img_left_region': [],
+    'template_img_right_region': [],
 }
 line_7 = {
-    'crop_region_negative': [],
-    'crop_region_positive': [],
-    'threshold_negative': [],
-    'threshold_positive': [],
+    'template_img_left_region': [],
+    'template_img_right_region': [],
 }
 line_8 = {
-    'crop_region_negative': [],
-    'crop_region_positive': [],
-    'threshold_negative': [],
-    'threshold_positive': [],
+    'template_img_left_region': [],
+    'template_img_right_region': [],
 }
 line_9 = {
-    'crop_region_negative': [],
-    'crop_region_positive': [],
-    'threshold_negative': [],
-    'threshold_positive': [],
+    'template_img_left_region': [],
+    'template_img_right_region': [],
 }
