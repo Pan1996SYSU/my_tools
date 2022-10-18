@@ -69,7 +69,7 @@ for img_path in img_path_list:
 
         dis_matrix2 = np.delete(dis_matrix2, min_index)
         points = np.delete(points, min_index, axis=0)
-    if dis_matrix2.size != 0 :
+    if dis_matrix2.size != 0:
         min_index = np.argmin(dis_matrix2)
         x = int(points[min_index][0])
         y = int(points[min_index][1])
@@ -80,4 +80,3 @@ for img_path in img_path_list:
     # cv2.waitKey(0)
     cv2.imencode('.tiff', img)[1].tofile(f'D:\桌面\pth/{j}.tiff')
     j += 1
-
