@@ -4,7 +4,7 @@ import numpy as np
 from scipy.spatial import distance
 from sonic.utils_func import cv_img_read, glob_extensions
 
-input_path = r"D:\桌面\20220930-NG图\NG_Image8"
+input_path = r"D:\桌面\20220930-NG图"
 t_img_path = r"D:\桌面\20220930-NG图\NG_Image5\WeldSpecial\Right_Weld2D\L\0JBMBPE6M106EDC9Y3300060_0022_10-06-11-22_Lum.tiff"
 
 
@@ -15,7 +15,7 @@ def create_model_id(template_img_path):
     # 根据剪裁的模板图像创建基于形状的模板，返回模板句柄ShapeModelID
     Edges = ha.edges_sub_pix(ImageReduced, 'canny', 8, 40, 60)
     ModelID = ha.create_shape_model_xld(
-        Edges, 'auto', 0, 360, 'auto', 'auto', 'ignore_local_polarity', 1)
+        Edges, 'auto', -180, 180, 'auto', 'auto', 'ignore_local_polarity', 1)
     return ModelID
 
 
@@ -29,11 +29,11 @@ def find_2_dim_min_index(dis_mat):
 
 model_ID = create_model_id(t_img_path)
 img_path_list = glob_extensions(input_path)
-
+j = 0
 for img_path in img_path_list:
     SearchImage = ha.read_image(img_path)
     Row, Column, Angle, Scale, Score1, Model = ha.find_scaled_shape_models(
-        SearchImage, model_ID, 0, 360, 1, 1, 0.8, 4, 0, 'least_squares', 0,
+        SearchImage, model_ID, -180, 180, 1, 1, 0.5, 4, 0, 'least_squares', 0,
         0.9)
 
     img = cv_img_read(img_path)
@@ -75,6 +75,9 @@ for img_path in img_path_list:
         y = int(points[min_index][1])
         cv2.circle(img, (x, y), 50, 0, -1)
 
-    cv2.namedWindow('img', 0)
-    cv2.imshow('img', img)
-    cv2.waitKey(0)
+    # cv2.namedWindow('img', 0)
+    # cv2.imshow('img', img)
+    # cv2.waitKey(0)
+    cv2.imencode('.tiff', img)[1].tofile(f'D:\桌面\pth/{j}.tiff')
+    j += 1
+
