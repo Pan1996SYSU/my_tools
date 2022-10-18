@@ -1,0 +1,2 @@
+import halcon as ha
+
