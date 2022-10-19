@@ -1,7 +1,6 @@
 import os
 import traceback
 from collections import defaultdict
-from multiprocessing.dummy import Pool as ThreadPool
 from pathlib import Path
 
 import cv2
