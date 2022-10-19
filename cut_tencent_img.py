@@ -6,7 +6,7 @@ from pathlib import Path
 
 import cv2
 import halcon as ha
-from sonic.utils_func import cv_img_read, load_json, save_json,make_dirs
+from sonic.utils_func import cv_img_read, load_json, save_json, make_dirs
 
 input_path = r'Z:\4-标注任务\20220922-中航叠片电芯-大面'
 output_path = r'Z:\4-标注任务\20220922-中航叠片电芯-大面-pwz已裁'
@@ -17,6 +17,7 @@ extensions = [
 ]
 
 padding = 100
+
 
 def get_files_from_dir(path):
     if not os.path.exists(path):
@@ -88,7 +89,10 @@ def crop_img(task):
             try:
                 img = cv_img_read(img_path)
                 h, w = img.shape[:2]
-                res_img = img[0:h, max(0, int(x1[0] - padding)):min(w, int(x2[0] + padding))].copy()
+                res_img = img[
+                    0:h,
+                    max(0, int(x1[0] - padding)):min(w, int(x2[0] +
+                                                            padding))].copy()
                 output_img_path = Path(
                     output_path,
                     Path(img_path).relative_to(Path(input_path)))
@@ -102,7 +106,8 @@ def crop_img(task):
                 print(img_path)
         if json_list:
             json_data = load_json(json_list)
-            json_res_data = cut_json(json_data, x1[0] - padding, x2[0] + padding)
+            json_res_data = cut_json(
+                json_data, x1[0] - padding, x2[0] + padding)
             output_json_path = Path(
                 output_path,
                 Path(json_list).relative_to(Path(input_path)))
@@ -112,8 +117,6 @@ def crop_img(task):
     except Exception as e:
         print(e)
         print(traceback.format_exc())
-
-
 
 
 file_dict = get_files_from_dir(input_path)
