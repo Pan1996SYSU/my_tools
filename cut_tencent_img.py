@@ -6,16 +6,17 @@ from pathlib import Path
 
 import cv2
 import halcon as ha
-from sonic.utils_func import cv_img_read, load_json, save_json
+from sonic.utils_func import cv_img_read, load_json, save_json,make_dirs
 
-input_path = r'D:\桌面\20220921-22-09-21_陈国栋-已标注-c'
-output_path = r'D:\桌面\img'
+input_path = r'Z:\4-标注任务\20220922-中航叠片电芯-大面'
+output_path = r'Z:\4-标注任务\20220922-中航叠片电芯-大面-pwz已裁'
 thread_num = 16
 
 extensions = [
     '.bmp', '.gif', '.jpeg', '.jpg', '.pbm', '.png', '.tif', '.tiff', '.json'
 ]
 
+padding = 100
 
 def get_files_from_dir(path):
     if not os.path.exists(path):
@@ -51,7 +52,7 @@ def cut_json(json_data, x1, x2):
     except Exception as e:
         print(e)
         print(traceback.format_exc())
-        return json_data
+    return json_data
 
 
 def crop_img(task):
@@ -85,24 +86,28 @@ def crop_img(task):
     for img_path in img_list:
         img = cv_img_read(img_path)
         h, w = img.shape[:2]
-        res_img = img[0:h, max(0, int(x1[0])):min(w, int(x2[0]))].copy()
+        res_img = img[0:h, max(0, int(x1[0] - padding)):min(w, int(x2[0] + padding))].copy()
         output_img_path = Path(
             output_path,
             Path(img_path).relative_to(Path(input_path)))
         suffix = Path(img_path).suffix
+        output_parent = Path(output_img_path).parent
+        make_dirs(output_parent)
         cv2.imencode(suffix, res_img)[1].tofile(output_img_path)
-    for json_path in json_list:
-        json_data = load_json(json_path)
-        json_res_data = cut_json(json_data, x1[0], x2[0])
+    if json_list:
+        json_data = load_json(json_list)
+        json_res_data = cut_json(json_data, x1[0] - padding, x2[0] + padding)
         output_json_path = Path(
             output_path,
-            Path(json_path).relative_to(Path(input_path)))
+            Path(json_list).relative_to(Path(input_path)))
+        output_parent = Path(output_json_path).parent
+        make_dirs(output_parent)
         save_json(output_json_path, json_res_data)
 
 
 
 
-file_dict = get_files_from_dir(r'D:\桌面\20220921-22-09-21_陈国栋-已标注-c')
+file_dict = get_files_from_dir(input_path)
 num = len(file_dict)
 n = max(1, num // 100)
 with ThreadPool(processes=thread_num) as pool:
