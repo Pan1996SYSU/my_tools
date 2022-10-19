@@ -3,11 +3,12 @@ import traceback
 from collections import defaultdict
 from multiprocessing.dummy import Pool as ThreadPool
 from pathlib import Path
-from sonic.utils_func import cv_img_read
-import halcon as ha
-import cv2
 
-input_path = r'Z:\4-标注任务\20220922-中航叠片电芯-大面'
+import cv2
+import halcon as ha
+from sonic.utils_func import cv_img_read, load_json, save_json
+
+input_path = r'D:\桌面\20220921-22-09-21_陈国栋-已标注-c'
 output_path = r'D:\桌面\img'
 thread_num = 16
 
@@ -35,26 +36,23 @@ def get_files_from_dir(path):
                     print(filename)
     return file_path_dict
 
-    def cut_json(json_data, x1, x2, y1, y2):
-        import numpy as np
-        try:
-            h = int(y2 - y1)
-            w = int(x2 - x1)
-            json_data["imageHeight"] = h
-            json_data["imageWidth"] = w
-            for i, shape in enumerate(json_data["shapes"]):
-                points = np.array(shape['points'])
-                points[:, 0] = points[:, 0] - x1
-                points[:, 1] = points[:, 1] - y1
-                points[points[:, 0] > w, 0] = w
-                points[points[:, 0] < 0, 0] = 0
-                points[points[:, 1] > h, 1] = h
-                points[points[:, 1] < 0, 1] = 0
-                json_data["shapes"][i]['points'] = points.tolist()
-        except Exception as e:
-            print(e)
-            print(traceback.format_exc())
+
+def cut_json(json_data, x1, x2):
+    import numpy as np
+    try:
+        w = int(x2 - x1)
+        json_data["imageWidth"] = w
+        for k, shape in enumerate(json_data["shapes"]):
+            points = np.array(shape['points'])
+            points[:, 0] = points[:, 0] - x1
+            points[points[:, 0] > w, 0] = w
+            points[points[:, 0] < 0, 0] = 0
+            json_data["shapes"][k]['points'] = points.tolist()
+    except Exception as e:
+        print(e)
+        print(traceback.format_exc())
         return json_data
+
 
 def crop_img(task):
     file_key = task.get('file_list', None)
@@ -76,7 +74,8 @@ def crop_img(task):
     Image = ha.read_image(base_img_path)
     Regions = ha.threshold(Image, 149, 255)
     ConnectedRegions = ha.connection(Regions)
-    SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 8000000, 16000000)
+    SelectedRegions = ha.select_shape(
+        ConnectedRegions, 'area', 'and', 8000000, 16000000)
     y1, x1, y2, x2 = ha.smallest_rectangle1(SelectedRegions)
     if len(y1) != 1:
         print('阈值分割失败，将使用默认坐标')
@@ -93,7 +92,13 @@ def crop_img(task):
         suffix = Path(img_path).suffix
         cv2.imencode(suffix, res_img)[1].tofile(output_img_path)
     for json_path in json_list:
-        cut_json
+        json_data = load_json(json_path)
+        json_res_data = cut_json(json_data, x1[0], x2[0])
+        output_json_path = Path(
+            output_path,
+            Path(json_path).relative_to(Path(input_path)))
+        save_json(output_json_path, json_res_data)
+
 
 
 
