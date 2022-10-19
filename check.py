@@ -1,6 +1,6 @@
 from pathlib import Path
+
 import cv2
-import numpy as np
 import pandas as pd
 from sonic.utils_func import load_json, save_json, cv_img_read, glob_extensions, make_dirs
 
