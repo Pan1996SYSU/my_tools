@@ -47,8 +47,8 @@ def cut_json(json_data, x1, x2):
         for k, shape in enumerate(json_data["shapes"]):
             points = np.array(shape['points'])
             points[:, 0] = points[:, 0] - x1
-            points[points[:, 0] > w, 0] = w
-            points[points[:, 0] < 0, 0] = 0
+            points[points[:, 0] >= w, 0] = w - 3
+            points[points[:, 0] <= 0, 0] = 3
             json_data["shapes"][k]['points'] = points.tolist()
     except Exception as e:
         print(e)
@@ -119,13 +119,13 @@ def crop_img(task):
         print(traceback.format_exc())
 
 
-file_dict = get_files_from_dir(input_path)
-num = len(file_dict)
-n = max(1, num // 100)
-with ThreadPool(processes=thread_num) as pool:
-    tasks = [{
-        'file_list': file_list,
-    } for file_list in file_dict]
-    for i, result in enumerate(pool.imap_unordered(crop_img, tasks)):
-        if i % n == 0:
-            print(i / num * 100)
+# file_dict = get_files_from_dir(input_path)
+# num = len(file_dict)
+# n = max(1, num // 100)
+# with ThreadPool(processes=thread_num) as pool:
+#     tasks = [{
+#         'file_list': file_list,
+#     } for file_list in file_dict]
+#     for i, result in enumerate(pool.imap_unordered(crop_img, tasks)):
+#         if i % n == 0:
+#             print(i / num * 100)
