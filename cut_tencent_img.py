@@ -1,6 +1,7 @@
 import os
 import traceback
 from collections import defaultdict
+from multiprocessing.dummy import Pool as ThreadPool
 from pathlib import Path
 
 import cv2
@@ -118,13 +119,14 @@ def crop_img(task):
         print(traceback.format_exc())
 
 
-# file_dict = get_files_from_dir(input_path)
-# num = len(file_dict)
-# n = max(1, num // 100)
-# with ThreadPool(processes=thread_num) as pool:
-#     tasks = [{
-#         'file_list': file_list,
-#     } for file_list in file_dict]
-#     for i, result in enumerate(pool.imap_unordered(crop_img, tasks)):
-#         if i % n == 0:
-#             print(i / num * 100)
+if __name__ == '__main__':
+    file_dict = get_files_from_dir(input_path)
+    num = len(file_dict)
+    n = max(1, num // 100)
+    with ThreadPool(processes=thread_num) as pool:
+        tasks = [{
+            'file_list': file_list,
+        } for file_list in file_dict]
+        for i, result in enumerate(pool.imap_unordered(crop_img, tasks)):
+            if i % n == 0:
+                print(i / num * 100)
