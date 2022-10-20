@@ -91,18 +91,19 @@ def modify_json(task):
     save_json(json_output_path, data)
 
 
-with ThreadPool(processes=thread_num) as pool:
-    tasks = [{
-        'json_path': json_path,
-    } for json_path in json_path_list]
-    for i, result in enumerate(pool.imap_unordered(remove_file, tasks)):
-        pass
+if __name__ == '__main__':
+    with ThreadPool(processes=thread_num) as pool:
+        tasks = [{
+            'json_path': json_path,
+        } for json_path in json_path_list]
+        for i, result in enumerate(pool.imap_unordered(remove_file, tasks)):
+            pass
 
-with ThreadPool(processes=thread_num) as pool:
-    tasks = [
-        {
-            'json_output_path': json_output_path,
-        } for json_output_path in json_output_path_list
-    ]
-    for i, result in enumerate(pool.imap_unordered(modify_json, tasks)):
-        pass
+    with ThreadPool(processes=thread_num) as pool:
+        tasks = [
+            {
+                'json_output_path': json_output_path,
+            } for json_output_path in json_output_path_list
+        ]
+        for i, result in enumerate(pool.imap_unordered(modify_json, tasks)):
+            pass

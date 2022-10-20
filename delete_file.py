@@ -17,7 +17,7 @@ def del_files(dir_path):
             del_files(tf)
     print('ok')
 
-
-path_list = glob(f'{input_path}/**/侧面1', recursive=True)
-for path in path_list:
-    del_files(path)
+if __name__ == '__main__':
+    path_list = glob(f'{input_path}/**/侧面1', recursive=True)
+    for path in path_list:
+        del_files(path)

@@ -12,8 +12,6 @@ thread_num = 16
 input_path = r'D:\桌面\顶盖焊预处理'
 output_path = r'D:\桌面\img'
 
-img_path_list = glob_extensions(input_path)
-
 
 def pre_process(task):
     img_path = task.get('img_path', None)
@@ -76,11 +74,13 @@ def pre_process(task):
         # print(all_time)
 
 
-n = len(img_path_list)
-with ThreadPool(processes=thread_num) as pool:
-    tasks = [{
-        'img_path': img_path,
-    } for img_path in img_path_list]
-    for i, result in enumerate(pool.imap_unordered(pre_process, tasks)):
-        if i % 10 == 0:
-            print(i / n * 100)
+if __name__ == '__main__':
+    img_path_list = glob_extensions(input_path)
+    n = len(img_path_list)
+    with ThreadPool(processes=thread_num) as pool:
+        tasks = [{
+            'img_path': img_path,
+        } for img_path in img_path_list]
+        for i, result in enumerate(pool.imap_unordered(pre_process, tasks)):
+            if i % 10 == 0:
+                print(i / n * 100)
