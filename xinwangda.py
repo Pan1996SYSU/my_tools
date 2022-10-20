@@ -192,34 +192,37 @@ def mfd_transformation(tasks):
                     img_2d_res)[1].tofile(fr"D:/桌面/xwd/{stem_prefix}_2D.tiff")
 
 
-path_list_t = glob(f'{input_2d_path}/**/*', recursive=True)
-path_list_2d = [Path(x) for x in path_list_t]
+if __name__ == '__main__':
+    path_list_t = glob(f'{input_2d_path}/**/*', recursive=True)
+    path_list_2d = [Path(x) for x in path_list_t]
 
-img_path_list_2d = [x for x in path_list_2d if x.suffix in extensions]
+    img_path_list_2d = [x for x in path_list_2d if x.suffix in extensions]
 
-path_list_t = glob(f'{input_3d_lum_path}/**/*', recursive=True)
-path_list_3d = [Path(x) for x in path_list_t]
+    path_list_t = glob(f'{input_3d_lum_path}/**/*', recursive=True)
+    path_list_3d = [Path(x) for x in path_list_t]
 
-json_path_list_lum = [x for x in path_list_3d if x.suffix == '.json']
-img_path_list_lum = [x for x in path_list_3d if x.suffix in extensions]
+    json_path_list_lum = [x for x in path_list_3d if x.suffix == '.json']
+    img_path_list_lum = [x for x in path_list_3d if x.suffix in extensions]
 
-path_list_t = glob(f'{input_h_lum_path}/**/*', recursive=True)
-path_list_3d = [Path(x) for x in path_list_t]
+    path_list_t = glob(f'{input_h_lum_path}/**/*', recursive=True)
+    path_list_3d = [Path(x) for x in path_list_t]
 
-img_path_list_h = [x for x in path_list_3d if x.suffix in extensions]
-img_path_list_h = [
-    x for x in img_path_list_h
-    if x.stem.endswith('H') or x.parent.name.endswith('H')
-]
+    img_path_list_h = [x for x in path_list_3d if x.suffix in extensions]
+    img_path_list_h = [
+        x for x in img_path_list_h
+        if x.stem.endswith('H') or x.parent.name.endswith('H')
+    ]
 
-path_dict = match_path_dict(
-    img_path_list_2d, json_path_list_lum, img_path_list_lum, img_path_list_h)
+    path_dict = match_path_dict(
+        img_path_list_2d, json_path_list_lum, img_path_list_lum,
+        img_path_list_h)
 
-with ThreadPool(processes=num_thread) as pool:
-    tasks = [{
-        'stem_prefix': stem_prefix,
-    } for stem_prefix in path_dict]
-    n = len(tasks)
-    for i, result in enumerate(pool.imap_unordered(mfd_transformation, tasks)):
-        if i % 10 == 0:
-            print(i / n * 100)
+    with ThreadPool(processes=num_thread) as pool:
+        tasks = [{
+            'stem_prefix': stem_prefix,
+        } for stem_prefix in path_dict]
+        n = len(tasks)
+        for i, result in enumerate(pool.imap_unordered(mfd_transformation,
+                                                       tasks)):
+            if i % 10 == 0:
+                print(i / n * 100)
