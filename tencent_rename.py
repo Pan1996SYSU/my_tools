@@ -5,7 +5,7 @@ from glob import iglob
 from pathlib import Path
 
 target_img_path = r'Z:\4-标注任务\CYS.220661-中航裸电芯（2合1）\20221011_传图\大面'
-copy_json_path = r'Z:\5-标注数据\CYS.220661-中航裸电芯-侧面'
+copy_json_path = r'Z:\5-标注数据\CYS.220661-中航裸电芯-大面'
 
 img_and_json_path_dict = defaultdict(set)
 
