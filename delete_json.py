@@ -2,7 +2,7 @@ import os
 from sonic.utils_func import glob_extensions
 from pathlib import Path
 
-target_path = r'Z:\4-标注任务\CYS.220661-中航裸电芯（2合1）'
+target_path = r'Z:\7-标注数据-归档\CYS.220661-中航裸电芯-腾讯定制版\20221011_传图'
 json_path_list = glob_extensions(target_path, ['.json'])
 n = len(json_path_list)
 
