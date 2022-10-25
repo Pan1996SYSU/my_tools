@@ -16,8 +16,15 @@ for img_path in img_path_list:
 json_path_list = iglob(f'{copy_json_path}/**/*.json', recursive=True)
 for json_path in json_path_list:
     json_name = Path(json_path).name
-    common_name = json_path.split('.')[0]
+    common_name = json_name.split('.')[0]
     common_name = common_name.split('_')[0]
-    img_and_json_path_dict[common_name].add(json_path)
-
-print(123)
+    try:
+        img_path_list = img_and_json_path_dict[common_name]
+        if len(common_name) == 0:
+            print(f'找不到对应图片{json_path}')
+        else:
+            img_first_path = img_path_list[0]
+            img_path_parent = Path(img_first_path).parent
+            
+    except:
+        print(json_path)
