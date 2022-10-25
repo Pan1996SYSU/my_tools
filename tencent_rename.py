@@ -32,7 +32,7 @@ for json_path in json_path_list:
             json_new_name = str(Path(img_first_path).name).split('_L')[0]
             json_output_path = f'{img_path_parent}/{json_new_name}.json'
             new_file = shutil.copy(json_path, json_output_path)
-            print(new_file)
+            print(f'复制成功{new_file}')
     except:
         print(traceback.format_exc())
         print(json_path)
