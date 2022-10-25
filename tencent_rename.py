@@ -25,6 +25,6 @@ for json_path in json_path_list:
         else:
             img_first_path = img_path_list[0]
             img_path_parent = Path(img_first_path).parent
-            
+
     except:
         print(json_path)
