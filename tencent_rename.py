@@ -5,8 +5,8 @@ from glob import iglob
 from pathlib import Path
 from sonic.utils_func import extensions
 
-target_img_path = r'Z:\4-标注任务\CYS.220661-中航裸电芯（2合1）\20221011_传图\侧面'
-copy_json_path = r'Z:\5-标注数据\CYS.220661-中航裸电芯-侧面'
+target_img_path = r'Z:\4-标注任务\CYS.220661-中航裸电芯（2合1）\侧面\20220913-80NG-117OK'
+copy_json_path = r'Z:\5-标注数据\归档\CYS.220661-中航裸电芯-侧面'
 
 img_and_json_path_dict = defaultdict(list)
 
@@ -15,7 +15,7 @@ for json_path in json_path_list:
     json_name = Path(json_path).name
     common_name = json_name.split('.')[0]
     common_name = common_name.split('_')[0]
-    # common_name = common_name.split('S')[-1]
+    common_name = common_name.split('S')[-1]
     img_and_json_path_dict[common_name].append(json_path)
 
 img_path_list = iglob(f'{target_img_path}/**/*', recursive=True)
@@ -24,7 +24,7 @@ for img_path in img_path_list:
     if img_suffix in extensions:
         img_name = Path(img_path).name
         common_name = img_name.split('_')[0]
-        # common_name = common_name.split('S')[-1]
+        common_name = common_name.split('S')[-1]
         try:
             json_path = img_and_json_path_dict[common_name]
             if len(json_path) == 0:
