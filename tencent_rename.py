@@ -1,16 +1,14 @@
 import shutil
-import traceback
-from collections import defaultdict
-from glob import iglob
 from pathlib import Path
-from sonic.utils_func import extensions, glob_extensions
+
+from sonic.utils_func import glob_extensions
 
 target_img_path = r'Z:\4-标注任务\CYS.220661-中航裸电芯（2合1）\侧面\问题'
 copy_json_path = r'Z:\7-标注数据-归档\CYS.220661-中航裸电芯-侧面'
 
 json_path_dict = {}
 
-json_path_list = glob_extensions(copy_json_path,  ['.json'])
+json_path_list = glob_extensions(copy_json_path, ['.json'])
 for json_path in json_path_list:
     json_name = Path(json_path).stem
     _position = json_name.index('_')
@@ -20,7 +18,10 @@ for json_path in json_path_list:
         json_name = json_name[5:]
     try:
         s_position = json_name.index('_S')
-        s_end = s_position + 8
+        i = s_position + 1
+        while json_name[i] != '_':
+            i += 1
+        s_end = i
         pre = json_name[:s_position]
         post = json_name[s_end:]
         json_name = pre + post
@@ -29,6 +30,10 @@ for json_path in json_path_list:
     try:
         c_position = json_name.index('_C')
         c_end = c_position + 4
+        i = c_position + 1
+        while json_name[i] != '_':
+            i += 1
+        c_end = i
         pre = json_name[:c_position]
         post = json_name[c_end:]
         json_name = pre + post
@@ -42,7 +47,10 @@ for img_path in img_path_list:
     img_name = img_name[5:]
     try:
         s_position = img_name.index('_S')
-        s_end = s_position + 9
+        i = s_position + 1
+        while img_name[i] != '_':
+            i += 1
+        s_end = i
         pre = img_name[:s_position]
         post = img_name[s_end:]
         img_name = pre + post
@@ -50,7 +58,10 @@ for img_path in img_path_list:
         pass
     try:
         c_position = img_name.index('_C')
-        c_end = c_position + 4
+        i = c_position + 1
+        while img_name[i] != '_':
+            i += 1
+        c_end = i
         pre = img_name[:c_position]
         post = img_name[c_end:]
         img_name = pre + post
