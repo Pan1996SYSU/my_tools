@@ -13,7 +13,25 @@ json_path_dict = {}
 json_path_list = glob_extensions(copy_json_path,  ['.json'])
 for json_path in json_path_list:
     json_name = Path(json_path).stem
-    json_path_dict[json_name] = json_path
+    try:
+        s_position = json_name.index('_S')
+    except:
+        print(f'找不到_S {json_name}')
+        continue
+    s_end = s_position + 8
+    pre = json_name[5:s_position]
+    post = json_name[s_end:]
+    json_name_without_s = pre + post
+    try:
+        c_position = json_name_without_s.index('_C')
+    except:
+        print(f'找不到_C {json_path }')
+        continue
+    c_end = c_position + 4
+    pre = json_name_without_s[:c_position]
+    post = json_name_without_s[c_end:]
+    json_name_without_s_without_c = pre + post
+    json_path_dict[json_name_without_s_without_c] = json_path
 
 img_path_list = glob_extensions(target_img_path)
 for img_path in img_path_list:
@@ -24,10 +42,19 @@ for img_path in img_path_list:
         print(f'找不到_S {img_path}')
         continue
     s_end = s_position + 8
-    pre = img_name[:s_position]
+    pre = img_name[5:s_position]
     post = img_name[s_end:]
     img_name_without_s = pre + post
-    common_name = img_name_without_s.split('_L')[0]
+    try:
+        c_position = img_name_without_s.index('_C')
+    except:
+        print(f'找不到_C {img_name_without_s}')
+        continue
+    c_end = c_position + 4
+    pre = img_name_without_s[:c_position]
+    post = img_name_without_s[c_end:]
+    img_name_without_s_without_c = pre + post
+    common_name = img_name_without_s_without_c.split('_L')[0]
     try:
         json_path = json_path_dict[common_name]
     except:
