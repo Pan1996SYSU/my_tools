@@ -1,9 +1,8 @@
-import xlwings as xw
 import pandas as pd
+import xlwings as xw
 
 file_path = r"D:\桌面\sth\公商福档案封面.xlsx"
 output_path = r'D:\桌面\sth\封面.xlsx'
-
 
 excel_data = pd.read_excel(file_path, sheet_name='Sheet3', header=0)
 excel_keys = list(excel_data.keys())
@@ -100,7 +99,22 @@ for i in range(len(number_list)):
     sht[i * const_num + 17, 0].value = '流量计型号：'
     sht[i * const_num + 19, 0].value = '燃气泄漏报警装置'
 
-    
+    # 边框
+    col_dict = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I']
+    for j in range(6, 19):
+        for col in col_dict:
+            for style in range(7, 11):
+                sht.range(f'{col}{i * const_num + j}').api.Borders(
+                    style).LineStyle = 1
+                sht.range(f'{col}{i * const_num + j}').api.Borders(
+                    style).Weight = 2
+    col_dict = ['C', 'D', 'F', 'G', 'H', 'I']
+    for j in range(2, 5):
+        for col in col_dict:
+            if j == 2 and col == 'H':
+                continue
+            sht.range(f'{col}{i * const_num + j}').api.Borders(9).LineStyle = 1
+            sht.range(f'{col}{i * const_num + j}').api.Borders(9).Weight = 2
 
 workbook.save(output_path)
 workbook.close()
