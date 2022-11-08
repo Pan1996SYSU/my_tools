@@ -13,7 +13,7 @@ workbook = excel.books.add()
 sht = workbook.sheets[0]
 const_num = 23
 
-for i in range(5):
+for i in range(3):
     the_id = excel_data['编号'][i]
     name = excel_data['店名'][i]
     add = excel_data['地址'][i]
@@ -94,10 +94,10 @@ for i in range(5):
     sht[i * const_num + 16, 2].value = '燃气燃烧设备情况'
     sht[i * const_num + 16, 5].value = '23'
     sht[i * const_num + 17, 0].value = '12'
-    sht[i * const_num + 17, 2].value = '燃气燃烧设备情况'
-    sht[i * const_num + 17, 5].value = '燃气泄漏报警装置'
+    sht[i * const_num + 17, 2].value = '燃气泄漏报警装置'
+    sht[i * const_num + 17, 5].value = '24'
     sht[i * const_num + 19, 0].value = '流量计型号：'
-    sht[i * const_num + 21, 0].value = '燃气泄漏报警装置'
+    sht[i * const_num + 21, 0].value = '调压器型号：'
 
     # 边框
     col_dict = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I']
@@ -175,8 +175,8 @@ for i in range(5):
 
     sht.range(f'B{i * const_num + 8}:B{i * const_num + 11}').api.merge
     sht.range(f'B{i * const_num + 12}:B{i * const_num + 14}').api.merge
-    sht.range(f'G{i * const_num + 13}:G{i * const_num + 15}').api.merge
-    sht.range(f'G{i * const_num + 16}:G{i * const_num + 18}').api.merge
+    sht.range(f'G{i * const_num + 7}:G{i * const_num + 9}').api.merge
+    sht.range(f'G{i * const_num + 10}:G{i * const_num + 12}').api.merge
 
 
 workbook.save(output_path)
