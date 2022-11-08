@@ -150,5 +150,28 @@ for i in range(len(number_list)):
     for j in range(7, 19):
         sht.range(f'A{i * const_num + j}').row_height = 13.5
 
+    # 合并单元格
+    sht.range(f'A{i * const_num + 1}:B{i * const_num + 1}').api.merge
+    sht.range(f'C{i * const_num + 1}:D{i * const_num + 1}').api.merge
+
+    sht.range(f'A{i * const_num + 2}:B{i * const_num + 2}').api.merge
+    sht.range(f'C{i * const_num + 2}:D{i * const_num + 2}').api.merge
+    sht.range(f'F{i * const_num + 2}:G{i * const_num + 2}').api.merge
+
+    sht.range(f'A{i * const_num + 3}:B{i * const_num + 3}').api.merge
+    sht.range(f'C{i * const_num + 3}:D{i * const_num + 3}').api.merge
+    sht.range(f'F{i * const_num + 3}:I{i * const_num + 3}').api.merge
+
+    sht.range(f'A{i * const_num + 4}:B{i * const_num + 4}').api.merge
+    sht.range(f'C{i * const_num + 4}:D{i * const_num + 4}').api.merge
+    sht.range(f'F{i * const_num + 4}:G{i * const_num + 4}').api.merge
+    sht.range(f'H{i * const_num + 4}:I{i * const_num + 4}').api.merge
+
+    sht.range(f'B{i * const_num + 7}:B{i * const_num + 11}').api.merge
+    sht.range(f'B{i * const_num + 12}:B{i * const_num + 14}').api.merge
+    sht.range(f'G{i * const_num + 13}:G{i * const_num + 15}').api.merge
+    sht.range(f'G{i * const_num + 16}:G{i * const_num + 18}').api.merge
+
+
 workbook.save(output_path)
 workbook.close()
