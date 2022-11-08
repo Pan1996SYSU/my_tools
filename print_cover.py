@@ -116,5 +116,17 @@ for i in range(len(number_list)):
             sht.range(f'{col}{i * const_num + j}').api.Borders(9).LineStyle = 1
             sht.range(f'{col}{i * const_num + j}').api.Borders(9).Weight = 2
 
+    # 字体
+    sht.range(f'A{i * const_num + 1}').api.Font.Size = 12
+    sht.range(f'A{i * const_num + 1}').api.Font.Bold = True
+    col_dict = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    for j in range(2, 19):
+        for col in col_dict:
+            sht.range(f'{col}{i * const_num + j}').api.Font.Size = 10
+    sht.range(f'A{i * const_num + 20}').api.Font.Size = 11
+    sht.range(f'A{i * const_num + 20}').api.Font.Bold = True
+    sht.range(f'A{i * const_num + 22}').api.Font.Size = 11
+    sht.range(f'A{i * const_num + 222}').api.Font.Bold = True
+
 workbook.save(output_path)
 workbook.close()
