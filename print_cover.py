@@ -93,11 +93,11 @@ for i in range(5):
     sht[i * const_num + 16, 0].value = '11'
     sht[i * const_num + 16, 2].value = '燃气燃烧设备情况'
     sht[i * const_num + 16, 5].value = '23'
-    sht[i * const_num + 16, 0].value = '12'
-    sht[i * const_num + 16, 2].value = '燃气燃烧设备情况'
-    sht[i * const_num + 16, 5].value = '燃气泄漏报警装置'
-    sht[i * const_num + 18, 0].value = '流量计型号：'
-    sht[i * const_num + 20, 0].value = '燃气泄漏报警装置'
+    sht[i * const_num + 17, 0].value = '12'
+    sht[i * const_num + 17, 2].value = '燃气燃烧设备情况'
+    sht[i * const_num + 17, 5].value = '燃气泄漏报警装置'
+    sht[i * const_num + 19, 0].value = '流量计型号：'
+    sht[i * const_num + 21, 0].value = '燃气泄漏报警装置'
 
     # 边框
     col_dict = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I']
@@ -143,6 +143,7 @@ for i in range(5):
         }
         for col in col_dict.keys():
             sht.range(f'{col}{i * const_num + 1}').column_width = col_dict[col]
+            sht.range(f'{col}{i * const_num + 1}').WrapText = True
     # 单元格高
     for j in range(1, 5):
         sht.range(f'A{i * const_num + j}').row_height = 27.75
