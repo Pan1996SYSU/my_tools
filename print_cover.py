@@ -126,7 +126,7 @@ for i in range(5):
     sht.range(f'A{i * const_num + 20}').api.Font.Size = 11
     sht.range(f'A{i * const_num + 20}').api.Font.Bold = True
     sht.range(f'A{i * const_num + 22}').api.Font.Size = 11
-    sht.range(f'A{i * const_num + 222}').api.Font.Bold = True
+    sht.range(f'A{i * const_num + 22}').api.Font.Bold = True
 
     if i == 0:
         # 单元格宽
@@ -143,7 +143,7 @@ for i in range(5):
         }
         for col in col_dict.keys():
             sht.range(f'{col}{i * const_num + 1}').column_width = col_dict[col]
-            sht.range(f'{col}{i * const_num + 1}').WrapText = True
+            sht.range(f'{col}{i * const_num + 1}').api.WrapText = True
     # 单元格高
     for j in range(1, 5):
         sht.range(f'A{i * const_num + j}').row_height = 27.75
@@ -168,7 +168,7 @@ for i in range(5):
     sht.range(f'F{i * const_num + 4}:G{i * const_num + 4}').api.merge
     sht.range(f'H{i * const_num + 4}:I{i * const_num + 4}').api.merge
 
-    sht.range(f'B{i * const_num + 7}:B{i * const_num + 11}').api.merge
+    sht.range(f'B{i * const_num + 8}:B{i * const_num + 11}').api.merge
     sht.range(f'B{i * const_num + 12}:B{i * const_num + 14}').api.merge
     sht.range(f'G{i * const_num + 13}:G{i * const_num + 15}').api.merge
     sht.range(f'G{i * const_num + 16}:G{i * const_num + 18}').api.merge
