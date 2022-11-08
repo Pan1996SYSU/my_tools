@@ -128,5 +128,27 @@ for i in range(len(number_list)):
     sht.range(f'A{i * const_num + 22}').api.Font.Size = 11
     sht.range(f'A{i * const_num + 222}').api.Font.Bold = True
 
+    if i == 0:
+        # 单元格宽
+        col_dict = {
+            'A': 5,
+            'B': 4.88,
+            'C': 16.75,
+            'D': 12.38,
+            'E': 10.5,
+            'F': 5,
+            'G': 4.88,
+            'H': 16,
+            'I': 12.38
+        }
+        for col in col_dict.keys():
+            sht.range(f'{col}{i * const_num + 1}').column_width = col_dict[col]
+    # 单元格高
+    for j in range(1, 5):
+        sht.range(f'A{i * const_num + j}').row_height = 27.75
+    sht.range(f'A{i * const_num + 6}').row_height = 27
+    for j in range(7, 19):
+        sht.range(f'A{i * const_num + j}').row_height = 13.5
+
 workbook.save(output_path)
 workbook.close()
