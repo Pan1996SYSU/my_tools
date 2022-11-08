@@ -13,7 +13,10 @@ workbook = excel.books.add()
 sht = workbook.sheets[0]
 const_num = 23
 
-for i in range(3):
+n = len(number_list)
+
+for i in range(n):
+    print(i / n * 100)
     the_id = excel_data['编号'][i]
     name = excel_data['店名'][i]
     add = excel_data['地址'][i]
@@ -44,10 +47,10 @@ for i in range(3):
     sht[i * const_num + 3, 7].value = gas_type
 
     sht[i * const_num + 5, 0].value = '序号'
-    sht[i * const_num + 5, 2].value = '名称'
+    sht[i * const_num + 5, 2].value = '名 称'
     sht[i * const_num + 5, 3].value = '归档√'
     sht[i * const_num + 5, 5].value = '序号'
-    sht[i * const_num + 5, 7].value = '名称'
+    sht[i * const_num + 5, 7].value = '名 称'
     sht[i * const_num + 5, 8].value = '归档√'
     sht[i * const_num + 6, 0].value = '1'
     sht[i * const_num + 6, 2].value = '用户基本信息'
@@ -159,11 +162,15 @@ for i in range(3):
     # 合并单元格
     sht.range(f'A{i * const_num + 1}:B{i * const_num + 1}').api.merge
     sht.range(f'C{i * const_num + 1}:D{i * const_num + 1}').api.merge
-    sht.range(f'C{i * const_num + 1}:D{i * const_num + 1}').api.HorizontalAlignment = True
+    sht.range(
+        f'C{i * const_num + 1}:D{i * const_num + 1}'
+    ).api.HorizontalAlignment = -4130
 
     sht.range(f'A{i * const_num + 2}:B{i * const_num + 2}').api.merge
     sht.range(f'C{i * const_num + 2}:D{i * const_num + 2}').api.merge
-    sht.range(f'C{i * const_num + 2}:D{i * const_num + 2}').api.HorizontalAlignment = True
+    sht.range(
+        f'C{i * const_num + 2}:D{i * const_num + 2}'
+    ).api.HorizontalAlignment = -4130
     sht.range(f'F{i * const_num + 2}:G{i * const_num + 2}').api.merge
     sht.range(f'I{i * const_num + 2}').api.HorizontalAlignment = True
 
@@ -174,7 +181,9 @@ for i in range(3):
     sht.range(f'A{i * const_num + 4}:B{i * const_num + 4}').api.merge
     sht.range(f'C{i * const_num + 4}:D{i * const_num + 4}').api.merge
     sht.range(f'F{i * const_num + 4}:G{i * const_num + 4}').api.merge
-    sht.range(f'F{i * const_num + 4}:G{i * const_num + 4}').api.HorizontalAlignment = True
+    sht.range(
+        f'F{i * const_num + 4}:G{i * const_num + 4}'
+    ).api.HorizontalAlignment = -4130
     sht.range(f'H{i * const_num + 4}:I{i * const_num + 4}').api.merge
 
     sht.range(f'B{i * const_num + 8}:B{i * const_num + 11}').api.merge
@@ -185,8 +194,14 @@ for i in range(3):
     col_dict = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
     for j in range(6, 19):
         for col in col_dict:
-            sht.range(f'{col}{i * const_num + j}').api.HorizontalAlignment = True
+            sht.range(
+                f'{col}{i * const_num + j}').api.HorizontalAlignment = -4108
 
+    sht.range(f'A{i * const_num + 2}').api.HorizontalAlignment = -4108
+    sht.range(f'A{i * const_num + 3}').api.HorizontalAlignment = -4108
+    sht.range(f'A{i * const_num + 4}').api.HorizontalAlignment = -4108
+    sht.range(f'H{i * const_num + 2}').api.HorizontalAlignment = -4108
+    sht.range(f'F{i * const_num + 4}').api.HorizontalAlignment = -4108
 
 workbook.save(output_path)
 workbook.close()
