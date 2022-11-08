@@ -159,10 +159,13 @@ for i in range(3):
     # 合并单元格
     sht.range(f'A{i * const_num + 1}:B{i * const_num + 1}').api.merge
     sht.range(f'C{i * const_num + 1}:D{i * const_num + 1}').api.merge
+    sht.range(f'C{i * const_num + 1}:D{i * const_num + 1}').api.HorizontalAlignment = True
 
     sht.range(f'A{i * const_num + 2}:B{i * const_num + 2}').api.merge
     sht.range(f'C{i * const_num + 2}:D{i * const_num + 2}').api.merge
+    sht.range(f'C{i * const_num + 2}:D{i * const_num + 2}').api.HorizontalAlignment = True
     sht.range(f'F{i * const_num + 2}:G{i * const_num + 2}').api.merge
+    sht.range(f'I{i * const_num + 2}').api.HorizontalAlignment = True
 
     sht.range(f'A{i * const_num + 3}:B{i * const_num + 3}').api.merge
     sht.range(f'C{i * const_num + 3}:D{i * const_num + 3}').api.merge
@@ -171,12 +174,18 @@ for i in range(3):
     sht.range(f'A{i * const_num + 4}:B{i * const_num + 4}').api.merge
     sht.range(f'C{i * const_num + 4}:D{i * const_num + 4}').api.merge
     sht.range(f'F{i * const_num + 4}:G{i * const_num + 4}').api.merge
+    sht.range(f'F{i * const_num + 4}:G{i * const_num + 4}').api.HorizontalAlignment = True
     sht.range(f'H{i * const_num + 4}:I{i * const_num + 4}').api.merge
 
     sht.range(f'B{i * const_num + 8}:B{i * const_num + 11}').api.merge
     sht.range(f'B{i * const_num + 12}:B{i * const_num + 14}').api.merge
     sht.range(f'G{i * const_num + 7}:G{i * const_num + 9}').api.merge
     sht.range(f'G{i * const_num + 10}:G{i * const_num + 12}').api.merge
+
+    col_dict = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    for j in range(6, 19):
+        for col in col_dict:
+            sht.range(f'{col}{i * const_num + j}').api.HorizontalAlignment = True
 
 
 workbook.save(output_path)
