@@ -143,13 +143,18 @@ for i in range(5):
         }
         for col in col_dict.keys():
             sht.range(f'{col}{i * const_num + 1}').column_width = col_dict[col]
-            sht.range(f'{col}{i * const_num + 1}').api.WrapText = True
     # 单元格高
     for j in range(1, 5):
         sht.range(f'A{i * const_num + j}').row_height = 27.75
     sht.range(f'A{i * const_num + 6}').row_height = 27
     for j in range(7, 19):
         sht.range(f'A{i * const_num + j}').row_height = 13.5
+
+    # 自动换行
+    col_dict = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    for j in range(2, 15):
+        for col in col_dict:
+            sht.range(f'{col}{i * const_num + j}').api.WrapText = True
 
     # 合并单元格
     sht.range(f'A{i * const_num + 1}:B{i * const_num + 1}').api.merge
