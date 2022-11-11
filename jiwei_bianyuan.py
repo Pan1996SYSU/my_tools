@@ -17,7 +17,7 @@ head = list(excel_data.keys())
 x = list(excel_data['片数'])
 
 window_length = 200
-k = 1
+k = 5
 
 # for i in range(3, 13):
 #     y = list(excel_data[head[i]])
@@ -46,7 +46,7 @@ plt.show()
 
 y1_smooth = scipy.signal.savgol_filter(y1, window_length, k)
 data = list(zip(y1, x))
-predictions = IsolationForest().fit(data).predict(data)
+predictions = IsolationForest(contamination=0.1).fit(data).predict(data)
 y1_res = []
 for j, flag in enumerate(predictions):
     if flag == -1:
@@ -56,7 +56,7 @@ for j, flag in enumerate(predictions):
 
 y2_smooth = scipy.signal.savgol_filter(y2, window_length, k)
 data = list(zip(y2, x))
-predictions = IsolationForest().fit(data).predict(data)
+predictions = IsolationForest(contamination=0.1).fit(data).predict(data)
 y2_res = []
 for j, flag in enumerate(predictions):
     if flag == -1:
