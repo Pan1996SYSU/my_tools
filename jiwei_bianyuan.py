@@ -13,7 +13,7 @@ head = list(excel_data.keys())
 x = list(excel_data['片数'])
 
 window_length = 500
-k = 3
+k = 1
 
 for i in range(3, 13):
     y = list(excel_data[head[i]])
