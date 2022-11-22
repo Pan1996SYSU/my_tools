@@ -64,6 +64,8 @@ for i, img_path in enumerate(img_path_list):
             print(f'无法匹配元素 {element}')
     img_stem = f'{pre}_{t}_{c}_{p3}_{l2}_{p2}_{g}_{m}_{s}_{post}'
     img_new_stem = str(img_stem).replace('__', '_')
+    img_new_stem = str(img_new_stem).replace('___', '_')
+    img_new_stem = str(img_new_stem).replace('____', '_')
     if img_new_stem[0] == '_':
         img_new_stem = img_new_stem[1:]
     if img_new_stem[-1] == '_':
