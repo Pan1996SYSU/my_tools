@@ -19,6 +19,7 @@ def glob_extensions1(directory: str, ext_names: list = extensions):
         for ext in ext_names:
             for x in path_list:
                 if x.endswith(ext):
+                    x = Path(x)
                     if x.parent.name != '无二维码':
                         new_list.append(x)
     return os_sorted(new_list)
@@ -49,6 +50,8 @@ no_name_img_path_list = glob_extensions2(input_path)
 
 normal_img_path_dict = {}
 
+a = set()
+
 for norm_img_path in normal_img_path_list:
     norm_img_path = Path(norm_img_path)
     img_name = norm_img_path.stem
@@ -67,10 +70,15 @@ for norm_img_path in normal_img_path_list:
     if pre != '' and t != '':
         normal_img_path_dict[t] = pre
 
-for n_img_path in no_name_img_path_list:
+n = len(no_name_img_path_list)
+
+for i, n_img_path in enumerate(no_name_img_path_list):
+    if i % 30 == 0:
+        print(i / n * 100)
     n_img_path = Path(n_img_path)
-    img_name = norm_img_path.stem
+    img_name = n_img_path.stem
     img_name_list = str(img_name).split('_')
+    pre = ''
     t = ''
     c = ''
     p3 = ''
@@ -83,7 +91,9 @@ for n_img_path in no_name_img_path_list:
     for element in img_name_list:
         if element == '':
             continue
-        if len(element) == 14:
+        if len(element) == 20:
+            pre = element
+        elif len(element) == 14:
             t = element
         elif len(element) == 17:
             t = element[:-3]
@@ -111,11 +121,12 @@ for n_img_path in no_name_img_path_list:
                 print(f'无法匹配元素 {element}')
         else:
             print(f'无法匹配元素 {element}')
-    try:
-        pre = normal_img_path_dict[t]
-    except:
-        print(f'找不到对应图片{n_img_path}')
-        continue
+    if pre == '':
+        try:
+            pre = normal_img_path_dict[t]
+        except:
+            a.add(t)
+            print(f'找不到对应图片{n_img_path}')
 
     img = cv_img_read(n_img_path)
     img_stem = f'{pre}_{t}_{c}_{p3}_{l2}_{p2}_{g}_{m}_{s}_{post}'
@@ -138,3 +149,5 @@ for n_img_path in no_name_img_path_list:
     make_dirs(final_output_path.parent)
 
     cv2.imencode(suffix, img)[1].tofile(final_output_path)
+
+print(a)
