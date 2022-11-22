@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 from sonic.utils_func import make_dirs
 
-input_path = r'Z:\Queenie\瑞浦顶盖焊-缺陷检测'
+input_path = r'Z:\4-标注任务\CYS.220717-欣旺达-密封钉检测-2D\二线\20221119-白班2DNG-标注中'
 output_path = r'D:\桌面\img'
 
 file_path_list = glob(f'{input_path}/**', recursive=True)
