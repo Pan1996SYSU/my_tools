@@ -60,4 +60,4 @@ for img_path in img_path_list:
         img_new_stem = img_new_stem[1:]
     if img_new_stem[-1] == '_':
         img_new_stem = img_new_stem[:-1]
-    
+
