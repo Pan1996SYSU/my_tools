@@ -1,8 +1,9 @@
-from sonic.utils_func import cv_img_read, glob_extensions, save_json, show_img
+import json
+from pathlib import Path
+
 import cv2
 import numpy as np
-from pathlib import Path
-import json
+from sonic.utils_func import cv_img_read, glob_extensions
 
 
 def cv_simplify_polygon(points_list, simplify_level: int = 1) -> np.ndarray:
@@ -43,10 +44,12 @@ img_path_list = glob_extensions(input_path)
 for img_path in img_path_list:
     img = cv_img_read(img_path)
     blur = cv2.blur(img, (10, 10))
-    res = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 325, 0)
+    res = cv2.adaptiveThreshold(
+        blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 325, 0)
     kernel = np.ones((10, 10), np.uint8)
     opening = cv2.morphologyEx(res, cv2.MORPH_OPEN, kernel)
-    contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv2.findContours(
+        opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     if len(contours) == 0:
         continue
 
@@ -61,9 +64,7 @@ for img_path in img_path_list:
         "imagePath": img_name,
         "imageHeight": h,
         "imageWidth": w,
-        "image_path_list": [
-            img_name
-        ],
+        "image_path_list": [img_name],
         "channels": 1
     }
     shapes_list = []
