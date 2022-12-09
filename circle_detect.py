@@ -3,6 +3,7 @@ from pathlib import Path
 from glob import glob
 import numpy as np
 from skimage.transform import resize
+import cv2
 
 input_path = r"D:\桌面\20221209-091543_密封钉-焊偏_20221208_164500_D_焊偏\NG"
 
@@ -24,8 +25,8 @@ for key in file_path_dict:
         if shape["category_name"] != "焊偏":
             continue
         x, y, w, h = shape["bbox"]
-        small_image = shape["mask"]
-        mask = resize(mask, small_image.shape, mode='constant', cval=0)
+        mask = np.array(shape["mask"], dtype=np.float32)
+        mask = resize(mask, (int(h), int(w)), mode='constant', cval=0)
         mask = (mask * 255).astype(np.uint8)
-        mask = resize(mask, (int(h), int(w)))
+        image = cv2.copyMakeBorder(mask, 50, 50, 50, 50, cv2.BORDER_CONSTANT, value=0)
         print(1)
