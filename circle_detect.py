@@ -8,22 +8,7 @@ import copy
 import time
 
 
-def has_white_intersection(img, circle):
-    height, width = img.shape[:2]
-    circle_img = np.zeros((height, width), dtype="uint8")
-    x, y, r = circle
-    cv2.circle(circle_img, (x, y), r - 100, (255, 255, 255), -1)
-    image = cv2.bitwise_and(img, circle_img)
-
-    # 如果存在相交的白色像素，则返回真
-    if image.any():
-        return True
-    else:
-        return False
-
-
 input_path = r"D:\桌面\20221209-160414_密封钉-焊偏_20221208_164500_D_OK"
-kernel = np.ones((20, 20), np.uint8)
 padding = 300
 
 json_path_list = glob_extensions(input_path, [".json"])
