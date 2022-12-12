@@ -4,7 +4,7 @@ from pathlib import Path
 import cv2
 from sonic.utils_func import extensions, glob_extensions, load_json, cv_img_read, make_dirs
 
-input_path = r"D:\桌面\img\20221212-133540_密封钉-焊偏_20221208_163004_D_4-焊偏模型-灰度图"
+input_path = r"D:\桌面\img\20221212-142655_密封钉-焊偏_20221209_132014_D_焊偏"
 output_path = r"D:\桌面\pth"
 
 json_path_list = glob_extensions(input_path, [".json"])
