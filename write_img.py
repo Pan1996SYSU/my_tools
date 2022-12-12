@@ -1,7 +1,8 @@
-import cv2
-from sonic.utils_func import extensions, glob_extensions, load_json, cv_img_read, make_dirs
 from glob import glob
 from pathlib import Path
+
+import cv2
+from sonic.utils_func import extensions, glob_extensions, load_json, cv_img_read, make_dirs
 
 input_path = r"D:\桌面\img\20221212-133540_密封钉-焊偏_20221208_163004_D_4-焊偏模型-灰度图"
 output_path = r"D:\桌面\pth"
@@ -25,9 +26,13 @@ for key in file_path_dict:
         continue
     json_data = load_json(file_path_list[0])
     shape = json_data["result"][0]
-    value = round(shape["center_offset_value"],2)
+    value = round(shape["center_offset_value"], 2)
     img = cv_img_read(file_path_list[1])
-    cv2.putText(img, f'offset_value: {value}', (500, 850), cv2.FONT_ITALIC, 3, (255, 0, 0), 3)
-    output_img_path = Path(output_path, Path(file_path_list[1]).relative_to(Path(input_path)))
+    cv2.putText(
+        img, f'offset_value: {value}', (500, 850), cv2.FONT_ITALIC, 3,
+        (255, 0, 0), 3)
+    output_img_path = Path(
+        output_path,
+        Path(file_path_list[1]).relative_to(Path(input_path)))
     make_dirs(output_img_path.parent)
     cv2.imencode('.jpg', img)[1].tofile(output_img_path)
