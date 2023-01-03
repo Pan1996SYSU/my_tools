@@ -13,5 +13,5 @@ class B(QObject):
 b = B()
 a = A()
 
-a.sendmsg.connect(b.get_msg)
+a.sig.connect(b.get_msg)
 a.send_msg()

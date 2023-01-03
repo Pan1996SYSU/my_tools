@@ -2,7 +2,7 @@ from PyQt5.Qt import *
 
 
 class A(QObject):
-    sendmsg = pyqtSignal(str, int)
+    sig = pyqtSignal(str, int)
 
     def send_msg(self):
-        self.sendmsg.emit('hello', 2)
+        self.sig.emit('hello', 2)
