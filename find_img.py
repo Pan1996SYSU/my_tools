@@ -3,9 +3,9 @@ import shutil
 from sonic.utils_func import glob_extensions
 from pathlib import Path
 
-basic_path = r"Z:\4-标注任务\CYS.220717-欣旺达-密封钉检测-2D\一线\pwz\已确认过杀"
-find_path = r"Z:\4-标注任务\CYS.220717-欣旺达-密封钉检测-2D\一线\pwz\NG"
-output_path = Path(r"Z:\4-标注任务\CYS.220717-欣旺达-密封钉检测-2D\一线\pwz\已匹配")
+basic_path = r"X:\2-现场取图-3D\CYS.220717-欣旺达-密封钉检测-2D\一线\2D-无需分类起\20230101-晚班2D\已确认过杀"
+find_path = r"X:\2-现场取图-3D\CYS.220717-欣旺达-密封钉检测-2D\一线\2D-无需分类起\20230101-晚班2D\原图\NG"
+output_path = Path(r"X:\2-现场取图-3D\CYS.220717-欣旺达-密封钉检测-2D\一线\2D-无需分类起\20230101-晚班2D\pwz已处理")
 
 basic_img_path_list = glob_extensions(basic_path)
 find_img_path_list = glob_extensions(find_path)
