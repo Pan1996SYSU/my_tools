@@ -1,7 +1,7 @@
-import cv2
-from sonic.utils_func import cv_img_read,glob_extensions
 from pathlib import Path
+
 from PIL import Image, ImageEnhance
+from sonic.utils_func import glob_extensions
 
 input_path = r"Z:\5-标注数据\CYS.220717-欣旺达-密封钉检测\9-彩图-停产-暂停\针孔"
 output_path = r"D:\桌面\pth"
