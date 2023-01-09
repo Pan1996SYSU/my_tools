@@ -1,17 +1,7 @@
-from PyQt5.Qt import *
+from A import a, add
 
-from A import A
+add()
 
+a.clear()
 
-class B(QObject):
-
-    def get_msg(self, string, aa):
-        print('你好' + string)
-        print(aa)
-
-
-b = B()
-a = A()
-
-a.sig.connect(b.get_msg)
-a.send_msg()
+add()

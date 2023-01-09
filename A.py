@@ -1,8 +1,7 @@
-from PyQt5.Qt import *
+a = set()
 
 
-class A(QObject):
-    sig = pyqtSignal(str, int)
-
-    def send_msg(self):
-        self.sig.emit('hello', 2)
+def add():
+    for i in range(20):
+        a.add(i)
+    print(a)
