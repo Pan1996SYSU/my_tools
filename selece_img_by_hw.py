@@ -4,7 +4,7 @@ from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
 from pathlib import Path
 import os
 
-input_path = r"Z:\5-标注数据\CYS.220924-万宝正负极片外观检测"
+input_path = r"Z:\4-标注任务\CYS.220924-万宝正负极片外观检测\检查中"
 output_path = r"D:\桌面\img"
 
 img_path_list = glob_extensions(input_path)
