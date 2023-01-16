@@ -1,20 +1,16 @@
 import os.path
-from glob import glob
 from pathlib import Path
 
-pattern = 'P07'
-new_pattern = 'P01'
-input_path = r'Z:\5-标注数据\CYS.220661-中航裸电芯-大面'
+from sonic.utils_func import glob_extensions
+input_path = r'D:\桌面\新建文件夹(1)'
 
-file_path_list = glob(f'{input_path}/**/*', recursive=True)
+json_path_list = glob_extensions(input_path, ['.json'])
 
-n = len(file_path_list)
-for i, file_path in enumerate(file_path_list):
-    if i % 30 == 0:
-        print(i / n * 100)
-    if os.path.isfile(file_path):
-        file_path = Path(file_path)
-        if pattern in file_path.name:
-            new_name = str(file_path).replace(pattern, new_pattern)
-            new_path = Path(Path(file_path).parent, Path(new_name))
-            os.rename(file_path, new_path)
+for i, file_path in enumerate(json_path_list):
+    file_path = Path(file_path)
+    stem = str(file_path.stem)
+    new_stem = stem.split('_L')[0]
+    suffix = str(file_path.suffix)
+    new_name = f'{new_stem}{suffix}'
+    new_path = Path(Path(file_path).parent, Path(new_name))
+    os.rename(file_path, new_path)
