@@ -1,0 +1,36 @@
+import sys
+from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtGui import QColor, QPixmap, QImage
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QDialog, QVBoxLayout
+
+class ColorPicker(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        # Load image
+        self.pixmap = QPixmap("image.png")
+
+        # Create image label
+        self.image_label = QLabel(self)
+        self.image_label.setPixmap(self.pixmap)
+        self.image_label.setMouseTracking(True)
+        self.image_label.mouseMoveEvent = self.show_color
+        self.setCentralWidget(self.image_label)
+
+        # Create zoomed color label
+        self.color_label = QLabel(self)
+        self.color_label.setFixedSize(50, 50)
+        self.color_label.move(200, 200)
+
+    def show_color(self, event):
+        # Get the pixel color under the cursor
+        color = self.pixmap.toImage().pixelColor(event.pos())
+
+        # Set zoomed color label to the selected color
+        self.color_label.setStyleSheet("QLabel { background-color: %s }" % color.name())
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    picker = ColorPicker()
+    picker.show()
+    sys.exit(app.exec_())
