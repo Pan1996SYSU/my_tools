@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QFrame
 
 
-class ColorPicker(QMainWindow):
+class AreaMagnification(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -23,8 +23,10 @@ class ColorPicker(QMainWindow):
         # Create zoomed color label
         self.color_label = QLabel(self)
         self.color_label.setFixedSize(100, 100)
-        self.color_label.setStyleSheet("QLabel { border: 1px solid blue;  \
-                                                background-color: white; position: absolute; left: 0px; top: 0px;}")
+        self.color_label.setStyleSheet(
+            "QLabel { border: 1px solid blue;  \
+                                                background-color: white; position: absolute; left: 0px; top: 0px;}"
+        )
 
         self.horizontal_line = QFrame(self.color_label)
         self.horizontal_line.setGeometry(QRect(0, 50, 100, 1))
@@ -40,21 +42,26 @@ class ColorPicker(QMainWindow):
         self.vertical_line.setLineWidth(1)
         self.vertical_line.setStyleSheet('background-color:blue;')
 
-
     def show_color(self, event):
         # Get the pixel color under the cursor
         x, y = event.pos().x(), event.pos().y()
-        color_area = self.pixmap.copy(x - 5, y - 5, 16, 16)
+        color_area = self.pixmap.copy(x - 15, y - 15, 30, 30)
         color_area = color_area.scaled(100, 100)
         self.color_label.setPixmap(color_area)
 
         # set the position of color_label to follow the mouse
-        self.color_label.move(x + 30, y + 30)
+        pos_x = x + 30
+        pos_y = y + 30
+        if pos_x + 100 > self.pixmap.width():
+            pos_x -= 160
+        if pos_y + 100 > self.pixmap.height():
+            pos_y -= 160
+        self.color_label.move(pos_x, pos_y)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    picker = ColorPicker()
-    picker.show()
-    picker.color_label.show()
+    am = AreaMagnification()
+    am.show()
+    am.color_label.show()
     sys.exit(app.exec_())
