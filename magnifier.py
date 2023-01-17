@@ -10,17 +10,14 @@ class AreaMagnification(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Load image
         self.pixmap = QPixmap("image.png")
 
-        # Create image label
         self.image_label = QLabel(self)
         self.image_label.setPixmap(self.pixmap)
         self.image_label.setMouseTracking(True)
         self.image_label.mouseMoveEvent = self.show_color
         self.setCentralWidget(self.image_label)
 
-        # Create zoomed color label
         self.color_label = QLabel(self)
         self.color_label.setFixedSize(100, 100)
         self.color_label.setStyleSheet(
@@ -43,13 +40,11 @@ class AreaMagnification(QMainWindow):
         self.vertical_line.setStyleSheet('background-color:blue;')
 
     def show_color(self, event):
-        # Get the pixel color under the cursor
         x, y = event.pos().x(), event.pos().y()
         color_area = self.pixmap.copy(x - 15, y - 15, 30, 30)
         color_area = color_area.scaled(100, 100)
         self.color_label.setPixmap(color_area)
 
-        # set the position of color_label to follow the mouse
         pos_x = x + 30
         pos_y = y + 30
         if pos_x + 100 > self.pixmap.width():
