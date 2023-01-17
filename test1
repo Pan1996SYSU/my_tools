@@ -1,9 +1,12 @@
 import sys
-from PyQt5.QtCore import Qt, QPoint
-from PyQt5.QtGui import QColor, QPixmap, QImage
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QDialog, QVBoxLayout
+
+from PyQt5.QtCore import QRect
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QFrame
+
 
 class ColorPicker(QMainWindow):
+
     def __init__(self):
         super().__init__()
 
@@ -19,18 +22,39 @@ class ColorPicker(QMainWindow):
 
         # Create zoomed color label
         self.color_label = QLabel(self)
-        self.color_label.setFixedSize(50, 50)
-        self.color_label.move(200, 200)
+        self.color_label.setFixedSize(100, 100)
+        self.color_label.setStyleSheet("QLabel { border: 1px solid blue;  \
+                                                background-color: white; position: absolute; left: 0px; top: 0px;}")
+
+        self.horizontal_line = QFrame(self.color_label)
+        self.horizontal_line.setGeometry(QRect(0, 50, 100, 1))
+        self.horizontal_line.setFrameShape(QFrame.HLine)
+        self.horizontal_line.setFrameShadow(QFrame.Sunken)
+        self.horizontal_line.setLineWidth(1)
+        self.horizontal_line.setStyleSheet('background-color:blue;')
+
+        self.vertical_line = QFrame(self.color_label)
+        self.vertical_line.setGeometry(QRect(50, 0, 1, 100))
+        self.vertical_line.setFrameShape(QFrame.VLine)
+        self.vertical_line.setFrameShadow(QFrame.Sunken)
+        self.vertical_line.setLineWidth(1)
+        self.vertical_line.setStyleSheet('background-color:blue;')
+
 
     def show_color(self, event):
         # Get the pixel color under the cursor
-        color = self.pixmap.toImage().pixelColor(event.pos())
+        x, y = event.pos().x(), event.pos().y()
+        color_area = self.pixmap.copy(x - 5, y - 5, 16, 16)
+        color_area = color_area.scaled(100, 100)
+        self.color_label.setPixmap(color_area)
 
-        # Set zoomed color label to the selected color
-        self.color_label.setStyleSheet("QLabel { background-color: %s }" % color.name())
+        # set the position of color_label to follow the mouse
+        self.color_label.move(x + 30, y + 30)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     picker = ColorPicker()
     picker.show()
+    picker.color_label.show()
     sys.exit(app.exec_())
