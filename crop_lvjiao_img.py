@@ -5,7 +5,7 @@ import cv2
 from sonic.utils_func import glob_extensions, cv_img_read
 from pathlib import Path
 
-input_path = r"Z:\2-现场取图\CYS.221102-绿胶AI增值ATL-2\24-长胶-左-绿胶-极耳\1"
+input_path = r"Z:\2-现场取图\CYS.221102-绿胶AI增值ATL-2\19-长胶2-左-绿胶-分离"
 output_path = r"D:\桌面\img"
 img_path_list = glob_extensions(input_path)
 
