@@ -46,7 +46,7 @@ for img_path in img_path_list:
                     points[points[:, 1] <= 1, 1] = 2
                     js_data["shapes"][i]['points'] = points.tolist()
 
-                
+
 
             elif shape['label'] == '绿胶-带极耳':
                 points = np.array(shape['points'])
