@@ -45,10 +45,10 @@ for img_path in img_path_list:
                     points = np.array(shape['points'])
                     points[:, 0] = points[:, 0] - max(0, int(x_min - padding))
                     points[:, 1] = points[:, 1] - max(0, int(y_min - padding))
-                    points[points[:, 0] >= crop_w - 1, 0] = crop_w - 2
-                    points[points[:, 0] <= 1, 0] = 2
-                    points[points[:, 1] >= crop_h - 1, 1] = crop_h - 2
-                    points[points[:, 1] <= 1, 1] = 2
+                    points[points[:, 0] >= crop_w, 0] = crop_w
+                    points[points[:, 0] <= 0, 0] = 0
+                    points[points[:, 1] >= crop_h, 1] = crop_h
+                    points[points[:, 1] <= 0, 1] = 0
                     js_data["shapes"][i]['points'] = points.tolist()
 
                 output_img_path = Path(
@@ -60,10 +60,10 @@ for img_path in img_path_list:
 
                 output_img_path_1 = Path(f'{parent}/{stem}_1{suffix}')
                 make_dirs(output_img_path_1.parent)
-                cv2.imencode(suffix, img)[1].tofile(output_img_path_1)
+                cv2.imencode(suffix, crop_img)[1].tofile(output_img_path_1)
 
                 json_output_path_1 = output_img_path_1.with_suffix('.json')
-                save_json(json_output_path_1, json_data)
+                save_json(json_output_path_1, js_data)
 
             elif shape['label'] == '绿胶-带极耳':
                 points = np.array(shape['points'])
@@ -91,10 +91,10 @@ for img_path in img_path_list:
                     points = np.array(shape['points'])
                     points[:, 0] = points[:, 0] - max(0, int(x_min - padding))
                     points[:, 1] = points[:, 1] - max(0, int(y_min - padding))
-                    points[points[:, 0] >= crop_w - 1, 0] = crop_w - 2
-                    points[points[:, 0] <= 1, 0] = 2
-                    points[points[:, 1] >= crop_h - 1, 1] = crop_h - 2
-                    points[points[:, 1] <= 1, 1] = 2
+                    points[points[:, 0] >= crop_w, 0] = crop_w
+                    points[points[:, 0] <= 0, 0] = 0
+                    points[points[:, 1] >= crop_h, 1] = crop_h
+                    points[points[:, 1] <= 0, 1] = 0
                     js_data["shapes"][i]['points'] = points.tolist()
 
                 output_img_path = Path(
@@ -104,9 +104,9 @@ for img_path in img_path_list:
                 stem = output_img_path.stem
                 suffix = output_img_path.suffix
 
-                output_img_path_1 = Path(f'{parent}/{stem}_2{suffix}')
-                make_dirs(output_img_path_1.parent)
-                cv2.imencode(suffix, img)[1].tofile(output_img_path_1)
+                output_img_path_2 = Path(f'{parent}/{stem}_2{suffix}')
+                make_dirs(output_img_path_2.parent)
+                cv2.imencode(suffix, crop_img)[1].tofile(output_img_path_2)
 
-                json_output_path_1 = output_img_path_1.with_suffix('.json')
-                save_json(json_output_path_1, json_data)
+                json_output_path_2 = output_img_path_2.with_suffix('.json')
+                save_json(json_output_path_2, js_data)
