@@ -1,5 +1,5 @@
 import traceback
-
+from multiprocessing.pool import ThreadPool
 import halcon as ha
 import cv2
 from sonic.utils_func import glob_extensions, cv_img_read
@@ -13,7 +13,9 @@ y_add = 80
 padding = 50
 n = 470
 
-for img_path in img_path_list:
+
+def func(task):
+    img_path = task.get('img_path', None)
     try:
         SearchImage = ha.read_image(img_path)
         Image1, Image2, Image3 = ha.decompose3(SearchImage)
@@ -42,3 +44,10 @@ for img_path in img_path_list:
         print(traceback.print_exc())
 
 
+if __name__ == '__main__':
+    with ThreadPool(processes=16) as pool:
+        tasks = [{
+            'img_path': img_path,
+        } for img_path in img_path_list]
+        for i, result in enumerate(pool.imap_unordered(func, tasks)):
+            pass
