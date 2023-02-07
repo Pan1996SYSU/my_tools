@@ -32,7 +32,7 @@ def func(task):
         y2 = max(Rows)
         img = cv_img_read(img_path)
         h, w = img.shape[:2]
-        img_res = img[max(0, y1 + y_add):min(h, y1 + 470), max(0, x1 - padding):min(w, x2 + padding)].copy()
+        img_res = img[max(0, y1 + y_add):min(h, y1 + y_add + 470), max(0, x1 - padding):min(w, x2 + padding)].copy()
         suffix = Path(img_path).suffix
         output_img_path = Path(
             output_path,
