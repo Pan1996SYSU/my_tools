@@ -5,27 +5,32 @@ import cv2
 from sonic.utils_func import glob_extensions, cv_img_read
 from pathlib import Path
 
-input_path = r"Z:\2-现场取图\CYS.221102-绿胶AI增值ATL-2\19-长胶2-左-绿胶-分离"
-output_path = r"D:\桌面\img"
+input_path = r"Z:/2-现场取图/CYS.221102-绿胶AI增值ATL-2/19-长胶2-左-绿胶-分离"
+output_path = r"D:\桌面\pth"
 img_path_list = glob_extensions(input_path)
+
+y_add = 80
+padding = 50
+n = 470
 
 for img_path in img_path_list:
     try:
         SearchImage = ha.read_image(img_path)
         Image1, Image2, Image3 = ha.decompose3(SearchImage)
-        Regions = ha.threshold(Image2, 147, 255)
+        Regions = ha.threshold(Image3, 118, 224)
         ConnectedRegions = ha.connection(Regions)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'height', 'and', 10, 1000)
         SelectedRegions1 = ha.select_shape(SelectedRegions, 'column1', 'and', 0, 1000)
-        RegionUnion = ha.union1(SelectedRegions1)
+        SelectedRegions2 = ha.select_shape(SelectedRegions1, 'width', 'and', 200, 99999)
+        RegionUnion = ha.union1(SelectedRegions2)
         Rows, Columns = ha.get_region_points(RegionUnion)
-        x1 = min(Columns)
+        x1 = 0
         x2 = max(Columns)
         y1 = min(Rows)
         y2 = max(Rows)
         img = cv_img_read(img_path)
         h, w = img.shape[:2]
-        img_res = img[max(0, y1 - 100):min(h, y1 + 100), max(0, x1 - 60):min(w, x2 + 60)].copy()
+        img_res = img[max(0, y1 + y_add):min(h, y1 + 470), max(0, x1 - padding):min(w, x2 + padding)].copy()
         suffix = Path(img_path).suffix
         output_img_path = Path(
             output_path,
