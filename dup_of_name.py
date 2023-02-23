@@ -1,5 +1,6 @@
 import os
 
+
 def check_duplicate_files(folder_path):
     """
     检查指定文件夹下所有文件是否有重名情况
@@ -23,5 +24,6 @@ def check_duplicate_files(folder_path):
             print(f"文件名 {file_name} 存在重名，路径为:")
             for file_path in file_paths:
                 print(f"\t{file_path}")
+
 
 check_duplicate_files(r"Z:\5-标注数据\CYS.220818-利元亨南京国轩整线-顶盖焊\4线")
