@@ -6,12 +6,12 @@ from sonic.utils_func import cv_img_read, glob_extensions, make_dirs, load_json,
 from pathlib import Path
 import cv2
 
-h = 1211
+h = 1345
 w = 2560
-padding = 245
+padding = 181
 
 
-input_path = r'Z:\4-标注任务\CYS.221126外观检测ATL-TAB-22015_BCU\裁图'
+input_path = r'D:\桌面\aaa'
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(input_path)
