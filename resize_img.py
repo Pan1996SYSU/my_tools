@@ -6,12 +6,15 @@ from sonic.utils_func import cv_img_read, glob_extensions, make_dirs, load_json,
 from pathlib import Path
 import cv2
 
-h = 1345
+h = 1211
 w = 2560
-padding = 181
+padding = 248
+
+hh = 1707
+ww = 2560
 
 
-input_path = r'D:\桌面\aaa'
+input_path = r'Z:\4-标注任务\CYS.221126外观检测ATL-TAB-22015_BCU\裁图'
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(input_path)
@@ -38,8 +41,8 @@ for img_path in img_path_list:
 
         if os.path.exists(json_path):
             js = load_json(json_path)
-            js["imageHeight"] = h
-            js["imageWidth"] = w
+            js["imageHeight"] = hh
+            js["imageWidth"] = ww
             for i, shape in enumerate(js["shapes"]):
                 points = np.array(shape['points'])
                 points[:, 0] = points[:, 0] * w_scale
