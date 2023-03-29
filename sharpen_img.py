@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
 
-input_path = Path(r"Z:\4-标注任务\CYS.220805（JR70）-卷绕机CCD\crop")
+input_path = Path(r"Z:\4-标注任务\CYS.221102-绿胶AI增值ATL\关键点模型\20230325\crop")
 img_path_list = glob_extensions(input_path)
-output_path = Path(r'Z:\4-标注任务\CYS.220805（JR70）-卷绕机CCD\crop-pwz已处理')
+output_path = Path(r'Z:\4-标注任务\CYS.221102-绿胶AI增值ATL\关键点模型\20230325\crop-pwz已处理')
 
 for img_path in img_path_list:
     try:
