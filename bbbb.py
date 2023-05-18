@@ -20,6 +20,6 @@ for file_path in file_path_list:
         folder_name = 'P05~P06'
     else:
         folder_name = f'P0{num}'
-    output = Path(output_path, folder_name, category_name,file_name)
+    output = Path(output_path, folder_name, category_name, file_name)
     make_dirs(output.parent)
     shutil.copy(file_path, output)
