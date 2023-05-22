@@ -6,17 +6,18 @@ from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
 
 r = 100
 
-input_path = r'D:/桌面/img'
+input_path = r"D:\桌面\img"
 img_path_list = glob_extensions(input_path)
 output_path = r'D:\桌面\新建文件夹'
 
 for img_path in img_path_list:
     try:
         Image = ha.read_image(img_path)
-        Regions = ha.threshold(Image, 179, 255)
+        Regions = ha.threshold(Image, 140, 255)
         ConnectedRegions = ha.connection(Regions)
-        SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 170000, 250000)
-        Row1, Column1, Row2, Column2 = ha.smallest_rectangle1(SelectedRegions)
+        SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 100000, 400000)
+        SelectedRegions1 = ha.select_shape(SelectedRegions, 'roundness', 'and', 0.7, 1.0)
+        Row1, Column1, Row2, Column2 = ha.smallest_rectangle1(SelectedRegions1)
 
         if not Row1 or not Row2 or not Column1 or not Column2:
             print(img_path)
