@@ -15,8 +15,12 @@ for img_path in img_path_list:
         Image = ha.read_image(img_path)
         Regions = ha.threshold(Image, 179, 255)
         ConnectedRegions = ha.connection(Regions)
-        SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 180000, 200000)
+        SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 170000, 250000)
         Row1, Column1, Row2, Column2 = ha.smallest_rectangle1(SelectedRegions)
+
+        if not Row1 or not Row2 or not Column1 or not Column2:
+            print(img_path)
+            continue
 
         y1 = round(Row1[0]) - r
         x1 = round(Column1[0]) - r
