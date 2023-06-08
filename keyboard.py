@@ -12,14 +12,11 @@ class Example(QMainWindow):
         self.initUI()
 
     def initUI(self):
-
         self.setGeometry(300, 300, 280, 170)
         self.setWindowTitle('Drawing text')
-
         self.show()
 
     def paintEvent(self, event):
-
         qp = QPainter()
         qp.begin(self)
         self.drawKey(qp, 'A', 20, 20)
@@ -29,7 +26,6 @@ class Example(QMainWindow):
         qp.end()
 
     def drawKey(self, qp, text, x, y):
-
         qp.setPen(Qt.black)
         qp.drawRect(x, y, 50, 50)
 
