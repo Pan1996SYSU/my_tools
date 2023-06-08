@@ -27,10 +27,9 @@ class Example(QMainWindow):
 
     def drawKey(self, qp, text, x, y):
         qp.setPen(Qt.black)
-        qp.drawRect(x, y, 50, 50)
 
         if text in self.pressed_keys:
-            qp.setBrush(QColor(255, 0, 0))
+            qp.setBrush(QColor(255, 181, 197))
         else:
             qp.setBrush(QColor(255, 255, 255))
 
