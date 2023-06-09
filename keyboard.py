@@ -18,7 +18,6 @@ class VirtualInput(QMainWindow):
     def initUI(self):
         self.setGeometry(300, 300, 1150, 340)
         self.setWindowTitle('输入测试')
-        self.show()
 
     def draw_mouse(self):
         painter = QPainter(self)
@@ -64,7 +63,10 @@ class VirtualInput(QMainWindow):
 
         qp.drawRect(x, y, w, h)
 
-        qp.setFont(QFont('Decorative', 10))
+        font = QFont('Decorative')
+        font.setPixelSize(13)
+
+        qp.setFont(font)
         n = len(text)
         qp.drawText(x - 4 * n + w // 2 + 2, y + 30, text)
 
@@ -129,4 +131,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = VirtualInput()
     ex.pressed_keys = set()
+    ex.show()
     sys.exit(app.exec_())
