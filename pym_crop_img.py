@@ -4,8 +4,8 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
 
-input_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230611-人工缺陷'
-output_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-检测区域\20230611'
+input_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230611\NG'
+output_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230611\NG-pwz已处理'
 
 padding = 10
 
@@ -26,15 +26,15 @@ for img_path in img_path_list:
             h, w = img.shape[:2]
 
             if row1[0] < column1[1]:
-                x1 = round(min(column1[0], column1[1]))
-                y1 = round(row2[0]) - padding*6
+                x1 = round(min(column1[0], column1[1])) - padding
+                y1 = round(row2[0]) - padding*2
                 x2 = round(max(column2[0], column1[1]))
-                y2 = round(row1[1]) + padding*8
+                y2 = round(row1[1]) + padding*3
             else:
-                x1 = round(min(column1[0], column1[1]))
-                y1 = round(row2[1]) - padding*6
+                x1 = round(min(column1[0], column1[1])) - padding
+                y1 = round(row2[1]) - padding*2
                 x2 = round(max(column2[0], column1[1]))
-                y2 = round(row1[0]) + padding*8
+                y2 = round(row1[0]) + padding*3
 
             res = img[max(0, y1):min(h, y2), max(0, x1):min(w, x2)].copy()
             output_img_path = Path(
