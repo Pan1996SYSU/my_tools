@@ -32,14 +32,14 @@ for i, img_path in enumerate(img_path_list):
             h, w = img.shape[:2]
 
             if row1[0] < column1[1]:
-                x1 = round(min(column1[0], column1[1])) + padding*3
-                y1 = round(row2[0]) - padding*4
-                x2 = round(max(column2[0], column1[1]))
+                x1 = round(min(column1[0], column1[1]))
+                y1 = round(row2[0]) - padding*6
+                x2 = round(max(column2[0], column1[1])) - padding*3
                 y2 = round(row1[1]) + padding*4
             else:
-                x1 = round(min(column1[0], column1[1])) + padding*3
-                y1 = round(row2[1]) - padding*4
-                x2 = round(max(column2[0], column1[1]))
+                x1 = round(min(column1[0], column1[1]))
+                y1 = round(row2[1]) - padding*6
+                x2 = round(max(column2[0], column1[1])) - padding*3
                 y2 = round(row1[0]) + padding*4
 
             res = img[max(0, y1):min(h, y2), max(0, x1):min(w, x2)].copy()
@@ -52,9 +52,9 @@ for i, img_path in enumerate(img_path_list):
             img = cv_img_read(img_path)
             h, w = img.shape[:2]
 
-            x1 = round(column1[0]) - padding
+            x1 = round(column1[0])
             y1 = 0
-            x2 = round(column2[0]) + padding
+            x2 = round(column2[0]) - padding*3
             y2 = h
 
             res = img[max(0, y1):min(h, y2), max(0, x1):min(w, x2)].copy()
