@@ -5,7 +5,7 @@ import halcon as ha
 from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
 
 input_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230620-验证\修改得分后'
-output_path = r'D:\桌面\img'
+output_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230620-验证\修改得分后-pwz已处理'
 
 padding = 5
 
@@ -33,12 +33,12 @@ for i, img_path in enumerate(img_path_list):
 
             if row1[0] < column1[1]:
                 x1 = round(min(column1[0], column1[1]))
-                y1 = round(row2[0]) + padding*6
+                y1 = round(row2[0])
                 x2 = round(max(column2[0], column1[1])) - padding*3
                 y2 = round(row1[1]) + padding*4
             else:
                 x1 = round(min(column1[0], column1[1]))
-                y1 = round(row2[1]) + padding*6
+                y1 = round(row2[1])
                 x2 = round(max(column2[0], column1[1])) - padding*3
                 y2 = round(row1[0]) + padding*4
 
