@@ -14,7 +14,7 @@ class AreaMagnification(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.pixmap = QPixmap("image.png")
+        self.pixmap = QPixmap(r"D:\桌面\sth\Cam_3-01-05 14_33_39_970_NG.bmp")
 
         self.image_label = QLabel(self)
         self.image_label.setPixmap(self.pixmap)
