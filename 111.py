@@ -1,9 +1,12 @@
 import sys
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
+
 class CenterPointWindow(QMainWindow):
+
     def __init__(self):
         super().__init__()
 
@@ -26,6 +29,7 @@ class CenterPointWindow(QMainWindow):
         painter.setPen(Qt.NoPen)
         painter.setBrush(QColor(255, 255, 255))
         painter.drawEllipse(self.rect())
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
