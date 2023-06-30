@@ -16,7 +16,7 @@ class CenterPointWindow(QMainWindow):
 
         # 设置窗口大小和位置
         screen_geometry = QApplication.desktop().availableGeometry()
-        window_width, window_height = 10, 10
+        window_width, window_height = 7, 7
         window_x = screen_geometry.width() // 2 - window_width // 2
         window_y = screen_geometry.height() // 2 - window_height // 2
         self.setGeometry(window_x, window_y, window_width, window_height)
