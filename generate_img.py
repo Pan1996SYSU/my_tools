@@ -1,10 +1,14 @@
 import csv
+
+import cv2
 import numpy as np
-from sonic.utils_func import show_img
 
 # 读取csv文件
 with open(r"D:\桌面\ANSS5.txt", 'r') as csvfile:
     reader = csv.reader(csvfile)
-    rows = [row for row in reader]
+    rows = np.array([row for row in reader])
 
-print(123)
+img = rows.reshape((8000, 8192, 3))
+normal = cv2.normalize(
+    img, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+cv2.imencode('.tiff', normal)[1].tofile('D:\桌面\ANSS5.tiff')
