@@ -6,8 +6,9 @@ import numpy as np
 # 读取csv文件
 with open(r"D:\桌面\ANSS5.txt", 'r') as csvfile:
     reader = csv.reader(csvfile)
-    rows = np.array([row for row in reader])
+    rows = [row for row in reader]
 
+data = np.array(rows).astype(np.float32)
 img = rows.reshape((8000, 8192, 3))
 normal = cv2.normalize(
     img, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
