@@ -54,7 +54,7 @@ for i, img_path in enumerate(img_path_list):
 
             x1 = round(column1[0])
             y1 = 0
-            x2 = round(column2[0]) - padding*3
+            x2 = round(column2[0]) - padding*4
             y2 = h
 
             res = img[max(0, y1):min(h, y2), max(0, x1):min(w, x2)].copy()
