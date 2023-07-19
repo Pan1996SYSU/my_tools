@@ -1,8 +1,8 @@
 import shutil
 from pathlib import Path
 
-from sonic.utils_func import cv_img_read, show_img, glob_extensions, extensions, make_dirs
 import cv2
+from sonic.utils_func import cv_img_read, glob_extensions, extensions, make_dirs
 
 input_path = r"Z:\5-标注数据\CYS.221126外观检测ATL-TAB-22015_BCU\4-单条检测"
 output_path = Path(r"Z:\5-标注数据\CYS.221126外观检测ATL-TAB-22015_BCU\7-彩色测试")
