@@ -23,7 +23,7 @@ for file_path in file_path_list:
         shutil.copy(file_path, output_json_path)
     else:
         img = cv_img_read(file_path)
-        color_image2 = cv2.applyColorMap(img, cv2.COLORMAP_PINK)
+        color_image2 = cv2.applyColorMap(img, cv2.COLORMAP_BONE)
         output_img_path = Path(
             output_path, file_path.relative_to(Path(input_path)))
         make_dirs(output_img_path.parent)
