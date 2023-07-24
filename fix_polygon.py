@@ -14,18 +14,15 @@ def check_polygon_intersection(polygon_points):
 
 def fix_polygon_intersection(polygon_points):
     polygon = Polygon(polygon_points)
-    if not polygon.is_valid:
-        polygon = polygon.buffer(0)
-
-    if not polygon.is_valid or polygon.area == 0:
-        fixed_polygon = polygon.convex_hull
-        return fixed_polygon.exterior.coords[:-1]
-    else:
-        return polygon.exterior.coords[:-1]
+    polygon = polygon.buffer(0)
+    fixed_polygon = polygon.convex_hull
+    return fixed_polygon.exterior.coords[:-1]
 
 
 # 示例点集
-polygon_points = [(0, 0), (0, 4), (4, 4), (4, 0), (1, 1), (3, 1)]
+polygon_points = [
+    (0, 0), (0, 4), (4, 4), (4, 1), (1, 1), (1, 2), (3, 2), (3, 0)
+]
 
 # 检测多边形是否存在交叉或区域重叠
 if check_polygon_intersection(polygon_points):
