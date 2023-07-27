@@ -23,9 +23,6 @@ class MyListParameter(pTypes.ListParameter):
 pTypes.registerParameterType('mylist', MyListParameter, override=True)
 
 if __name__ == '__main__':
-    # Register the new parameter type
-    pTypes.registerParameterType('mylist', MyListParameter, override=True)
-
     # Test the new list parameter
     newlist = [
         {
