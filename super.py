@@ -1,46 +1,70 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
-from pyqtgraph.parametertree import Parameter, ParameterTree
-from pyqtgraph.parametertree.parameterTypes import GroupParameter, ListParameter
 
-class MyWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+import pyqtgraph as pg
+import pyqtgraph.parametertree.parameterTypes as pTypes
 
-        # 创建一个参数树
-        self.parameter_tree = ParameterTree()
-        self.setCentralWidget(self.parameter_tree)
 
-        # 创建一个参数组，并添加到参数树中
-        self.group_param = GroupParameter(name='Parameters')
-        self.parameter_tree.setParameters(self.group_param, showTop=False)
+class MyListParameterItem(pTypes.ListParameterItem):
+    def value(self):
+        """
+        Get the current value of the list parameter.
+        """
+        return self.param.value()
 
-        # 创建一个新的参数类型 "new_list"，并添加到参数组中
-        self.new_list_param = ListParameter(name='new_list', values=[1, 2, 3, 4], value=1)
-        self.group_param.addChild(self.new_list_param)
+    def setValue(self, value):
+        """
+        Set the value of the list parameter based on the name of the child.
+        """
+        self.param.setValue(value)
 
-        # 为新的参数类型添加子参数
-        self.button_params = []
-        for i in range(1, 5):
-            button_param = Parameter(name=f'Button {i}', type='bool', value=False)
-            self.new_list_param.addChild(button_param)
-            self.button_params.append(button_param)
+class MyListParameter(pTypes.ListParameter):
+    itemClass = MyListParameterItem
 
-        # 监听参数值的变化，根据新的值显示或隐藏对应的子参数
-        self.new_list_param.sigValueChanged.connect(self.update_button_params)
-
-    def update_button_params(self, param, value):
-        # 隐藏所有的按钮子参数
-        for button_param in self.button_params:
-            button_param.hide()
-
-        # 显示对应值的按钮子参数
-        index = value - 1
-        if index >= 0 and index < len(self.button_params):
-            self.button_params[index].show()
+pTypes.registerParameterType('mylist', MyListParameter, override=True)
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MyWindow()
-    window.show()
+    # Register the new parameter type
+    pTypes.registerParameterType('mylist', MyListParameter, override=True)
+
+    # Test the new list parameter
+    newlist = [
+        {
+            'name': 'List',
+            'type': 'mylist',
+            'limits': [
+                'Item 1',
+                'Item 2',
+                'Item 3',
+            ],
+            'children': [
+                {
+                    'name': 'Item 1',
+                    'type': 'str',
+                    'value': 'default value'
+                }, {
+                    'name': 'Item 2',
+                    'type': 'int',
+                    'value': 0
+                }, {
+                    'name': 'Item 3',
+                    'type': 'float',
+                    'value': 1.0
+                }
+            ]
+        }
+    ]
+
+    # Create parameters manually
+    params = pTypes.SimpleParameter(
+        name='Parameters', type='group', children=newlist)
+
+    # Create a ParameterTree and add the parameters
+    app = pg.mkQApp()
+    param_tree = pg.parametertree.ParameterTree()
+    param_tree.setParameters(params, showTop=False)
+
+    # Show the ParameterTree
+    param_tree.show()
+
+    # Start the Qt event loop
     sys.exit(app.exec_())
