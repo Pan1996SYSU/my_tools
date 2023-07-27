@@ -19,14 +19,14 @@ def read_images_from_path(path):
             end_time = datetime.now()
             read_time = (end_time - start_time).total_seconds()
 
-            if read_time > 1:
+            if read_time > 0.5:
                 # 打印图像的路径和读取时间
                 print(f"图像路径：{image_path}")
                 print(f"读取时间：{read_time}\n")
 
 
 # 指定要读取的图像路径
-image_path = r"Z:\2-现场取图\CYS.230118-卷绕CCD-柳州极耳翻折\20230725-AI图"
+image_path = r"Z:\5-标注数据\CYS.230118-柳州瑞浦-极耳翻折\极耳褶皱"
 
 # 调用函数读取图像并打印读取时间
 read_images_from_path(image_path)
