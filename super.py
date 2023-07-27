@@ -5,6 +5,7 @@ import pyqtgraph.parametertree.parameterTypes as pTypes
 
 
 class MyListParameterItem(pTypes.ListParameterItem):
+
     def value(self):
         """
         Get the current value of the list parameter.
@@ -17,8 +18,10 @@ class MyListParameterItem(pTypes.ListParameterItem):
         """
         self.param.setValue(value)
 
+
 class MyListParameter(pTypes.ListParameter):
     itemClass = MyListParameterItem
+
 
 pTypes.registerParameterType('mylist', MyListParameter, override=True)
 
