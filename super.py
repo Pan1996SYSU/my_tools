@@ -22,6 +22,12 @@ class MyListParameterItem(pTypes.ListParameterItem):
 class MyListParameter(pTypes.ListParameter):
     itemClass = MyListParameterItem
 
+    def setLimits(self, limits):
+        limits = []
+        for child in self.childs:
+            limits.append(child.name())
+        super().setLimits(limits)
+
 
 pTypes.registerParameterType('mylist', MyListParameter, override=True)
 
@@ -31,11 +37,7 @@ if __name__ == '__main__':
         {
             'name': 'List',
             'type': 'mylist',
-            'limits': [
-                'Item 1',
-                'Item 2',
-                'Item 3',
-            ],
+            'limits':['1','2'],
             'children': [
                 {
                     'name': 'Item 1',
