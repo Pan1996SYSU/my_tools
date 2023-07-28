@@ -2,8 +2,6 @@ import sys
 
 import pyqtgraph as pg
 import pyqtgraph.parametertree.parameterTypes as pTypes
-from pyqtgraph.parametertree import ParameterItem
-from pyqtgraph.parametertree.parameterTypes import ListParameter
 
 
 class MyListParameterItem(pTypes.ListParameterItem):
@@ -13,16 +11,22 @@ class MyListParameterItem(pTypes.ListParameterItem):
         for i in range(self.childCount()):
             if i == self.widget.currentIndex():
                 self.child(i).setHidden(False)
+                self.child(i).param.opts['visible'] = True
             else:
                 self.child(i).setHidden(True)
+                self.child(i).param.opts['visible'] = False
 
-    def addChild(self, child): 
+    def addChild(self, child):
         super().addChild(child)
-        for i in range(self.childCount()):
-            if i == self.widget.currentIndex():
-                self.child(i).setHidden(False)
-            else:
-                self.child(i).setHidden(True)
+        if self.childCount() == len(self.param.childs):
+            for i in range(self.childCount()):
+                if i == self.widget.currentIndex():
+                    self.child(i).setHidden(False)
+                    self.child(i).param.opts['visible'] = True
+                else:
+                    self.child(i).setHidden(True)
+                    self.child(i).param.opts['visible'] = False
+
 
 class MyListParameter(pTypes.ListParameter):
     itemClass = MyListParameterItem
@@ -41,7 +45,6 @@ if __name__ == '__main__':
         {
             'name': 'List',
             'type': 'mylist',
-            'limits': ['1', '2', '3'],
             'children': [
                 {
                     'name': 'str',
@@ -55,6 +58,10 @@ if __name__ == '__main__':
                     'name': 'float',
                     'type': 'float',
                     'value': 1.0
+                }, {
+                    'name': 'str2',
+                    'type': 'str',
+                    'value': 'fuck'
                 }
             ]
         }
