@@ -44,7 +44,7 @@ if __name__ == '__main__':
     newlist = [
         {
             'name': 'List',
-            'type': 'mylist',
+            'type': 'new_list',
             'children': [
                 {
                     'name': 'str',
