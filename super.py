@@ -6,38 +6,32 @@ import pyqtgraph.parametertree.parameterTypes as pTypes
 
 class MyListParameterItem(pTypes.ListParameterItem):
 
-    def value(self):
-        """
-        Get the current value of the list parameter.
-        """
-        return self.param.value()
-
-    def setValue(self, value):
-        """
-        Set the value of the list parameter based on the name of the child.
-        """
-        self.param.setValue(value)
+    def valueChanged(self, param, value, force=False, *args):
+        super().valueChanged(param, value, force, *args)
+        for i in range(self.childCount()):
+            if i == self.widget.currentIndex():
+                self.child(i).setHidden(False)
+            else:
+                self.child(i).setHidden(True)
 
 
 class MyListParameter(pTypes.ListParameter):
     itemClass = MyListParameterItem
 
     def setLimits(self, limits):
-        limits = []
+        limits.clear()
         for child in self.childs:
             limits.append(child.name())
         super().setLimits(limits)
 
 
 pTypes.registerParameterType('mylist', MyListParameter, override=True)
-
 if __name__ == '__main__':
     # Test the new list parameter
     newlist = [
         {
             'name': 'List',
             'type': 'mylist',
-            'limits':['1','2'],
             'children': [
                 {
                     'name': 'Item 1',
