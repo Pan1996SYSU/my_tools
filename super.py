@@ -6,8 +6,8 @@ import pyqtgraph.parametertree.parameterTypes as pTypes
 
 class MyListParameterItem(pTypes.ListParameterItem):
 
-    def valueChanged(self, param, value, force=False, *args):
-        super().valueChanged(param, value, force, *args)
+    def valueChanged(self, param, value, force=False):
+        super().valueChanged(param, value, force)
         for i in range(self.childCount()):
             if i == self.widget.currentIndex():
                 self.child(i).setHidden(False)
@@ -63,7 +63,18 @@ if __name__ == '__main__':
                     'type': 'str',
                     'value': 'fuck'
                 }
-            ]
+            ],
+            'children2': [
+                {
+                    'name': 'str',
+                    'type': 'str',
+                    'value': 'default value'
+                }, {
+                    'name': 'int',
+                    'type': 'int',
+                    'value': 0
+                }
+            ],
         }
     ]
 
