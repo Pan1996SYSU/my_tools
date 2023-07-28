@@ -32,17 +32,18 @@ if __name__ == '__main__':
         {
             'name': 'List',
             'type': 'mylist',
+            'limits': ['1', '2', '3'],
             'children': [
                 {
-                    'name': 'Item 1',
+                    'name': 'str',
                     'type': 'str',
                     'value': 'default value'
                 }, {
-                    'name': 'Item 2',
+                    'name': 'int',
                     'type': 'int',
                     'value': 0
                 }, {
-                    'name': 'Item 3',
+                    'name': 'float',
                     'type': 'float',
                     'value': 1.0
                 }
