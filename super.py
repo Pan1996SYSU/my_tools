@@ -2,6 +2,8 @@ import sys
 
 import pyqtgraph as pg
 import pyqtgraph.parametertree.parameterTypes as pTypes
+from pyqtgraph.parametertree import ParameterItem
+from pyqtgraph.parametertree.parameterTypes import ListParameter
 
 
 class MyListParameterItem(pTypes.ListParameterItem):
@@ -14,6 +16,13 @@ class MyListParameterItem(pTypes.ListParameterItem):
             else:
                 self.child(i).setHidden(True)
 
+    def addChild(self, child): 
+        super().addChild(child)
+        for i in range(self.childCount()):
+            if i == self.widget.currentIndex():
+                self.child(i).setHidden(False)
+            else:
+                self.child(i).setHidden(True)
 
 class MyListParameter(pTypes.ListParameter):
     itemClass = MyListParameterItem
