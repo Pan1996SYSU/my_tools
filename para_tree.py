@@ -38,7 +38,7 @@ class MyListParameter(pTypes.ListParameter):
         super().setLimits(limits)
 
 
-pTypes.registerParameterType('mylist', MyListParameter, override=True)
+pTypes.registerParameterType('new_list', MyListParameter, override=True)
 if __name__ == '__main__':
     # Test the new list parameter
     newlist = [
