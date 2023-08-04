@@ -46,8 +46,8 @@ def polygon2kpt_vertical(json_data, points_num):
                 "label": str(n),
                 "points": [
                     [
-                        np.array(intersection_points[k]).min(),
-                        np.array(intersection_points[k+1]).min()
+                        np.array(intersection_points[k]).max(),
+                        np.array(intersection_points[k+1]).max()
                     ]
                 ],
                 "group_id": None,
@@ -60,8 +60,8 @@ def polygon2kpt_vertical(json_data, points_num):
                 "label": str(n),
                 "points": [
                     [
-                        np.array(intersection_points[k]).max(),
-                        np.array(intersection_points[k + 1]).max()
+                        np.array(intersection_points[k]).min(),
+                        np.array(intersection_points[k + 1]).min()
                     ]
                 ],
                 "group_id": None,
