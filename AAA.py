@@ -39,10 +39,11 @@ def polygon2kpt_vertical(json_data, points_num):
                 intersection_points.extend(list(intersection.xy))
 
         # 输出交点坐标
+        n = 0
         for k in range(0, len(intersection_points), 2):
             point_top = {
                 "mark": "",
-                "label": k // 2,
+                "label": str(n),
                 "points": [
                     [
                         np.array(intersection_points[k]).min(),
@@ -53,9 +54,10 @@ def polygon2kpt_vertical(json_data, points_num):
                 "shape_type": "point",
                 "flags": {}
             }
+            n += 1
             point_bottom = {
                 "mark": "",
-                "label": i // 2 + 1,
+                "label": str(n),
                 "points": [
                     [
                         np.array(intersection_points[k]).max(),
@@ -66,6 +68,7 @@ def polygon2kpt_vertical(json_data, points_num):
                 "shape_type": "point",
                 "flags": {}
             }
+            n += 1
             point_shapes.append(point_top)
             point_shapes.append(point_bottom)
     json_data["shapes"] = point_shapes
