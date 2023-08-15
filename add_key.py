@@ -1,22 +1,43 @@
-import os
 import winreg
 
 
-def main():
-    my_app_path = os.path.abspath(r"D:\桌面\LabelMe.exe")
-    icon_path = os.path.abspath(r"D:\桌面\icon.ico")
+def add_to_registry(extension, name, command):
+    # 获取 HKEY_CURRENT_USER\Software\Classes 所对应的键
+    classes_key = winreg.OpenKey(
+        winreg.HKEY_CURRENT_USER, 'Software\Classes', 0, winreg.KEY_WRITE)
 
-    # 创建右键菜单项
-    key = winreg.CreateKey(
-        winreg.HKEY_CURRENT_USER,
-        "Software\\Classes\\Directory\\Background\\shell\\Open with LabelMe")
-    winreg.SetValue(key, "", winreg.REG_SZ, "使用 LabelMe 打开")
-    winreg.SetValueEx(key, "Icon", 0, winreg.REG_SZ, icon_path)
+    # 创建指定扩展名的键
+    extension_key = winreg.CreateKey(classes_key, extension)
 
-    # 创建命令项，并将选中目录的路径作为参数
-    key_cmd = winreg.CreateKey(key, "command")
-    winreg.SetValue(key_cmd, "", winreg.REG_SZ, f'"{my_app_path}" "%V"')
+    # 获取文件类型的默认值，例如 ".pth" 所对应的默认值可能是 "Python.File"
+    file_type, _ = winreg.QueryValueEx(extension_key, '')
+
+    # 关闭 "extension" 键
+    winreg.CloseKey(extension_key)
+
+    # 创建文件类型键
+    file_type_key = winreg.CreateKey(classes_key, file_type)
+
+    # 创建 "shell" 子项
+    shell_key = winreg.CreateKey(file_type_key, 'shell')
+
+    # 创建命令项
+    app_key = winreg.CreateKey(shell_key, name)
+    command_key = winreg.CreateKey(app_key, 'command')
+
+    # 设置命令项的默认值
+    winreg.SetValueEx(command_key, '', 0, winreg.REG_SZ, command)
+    winreg.SetValueEx(command_key, "DefaultIcon", 0, winreg.REG_SZ, r"D:\桌面\391175.png")
+
+    # 关闭所有打开的键
+    winreg.CloseKey(command_key)
+    winreg.CloseKey(app_key)
+    winreg.CloseKey(shell_key)
+    winreg.CloseKey(file_type_key)
+    winreg.CloseKey(classes_key)
 
 
-if __name__ == "__main__":
-    main()
+# 例如，将 ".pth"、".cpth" 和 ".ctrt" 文件的右键菜单设置为 "Open with myapp"
+add_to_registry('.pth', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
+add_to_registry('.cpth', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
+add_to_registry('.ctrt', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
