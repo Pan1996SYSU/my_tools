@@ -25,7 +25,7 @@ def add_to_registry(extension, name, command):
     winreg.SetValueEx(app_key, 'Icon', 0, winreg.REG_SZ, command)
 
     # 设置命令项的默认值
-    winreg.SetValueEx(command_key, '', 0, winreg.REG_SZ, command)
+    winreg.SetValueEx(command_key, '', 0, winreg.REG_SZ, f'{command} "%1"')
 
     # 关闭所有打开的键
     winreg.CloseKey(command_key)
@@ -34,6 +34,6 @@ def add_to_registry(extension, name, command):
     winreg.CloseKey(file_type_key)
     winreg.CloseKey(classes_key)
 
-add_to_registry('.pth', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
-add_to_registry('.cpth', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
-add_to_registry('.ctrt', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
+add_to_registry('.pth', '使用Detection打开', r'D:\桌面\Detection.exe')
+add_to_registry('.cpth', '使用Detection打开', r'D:\桌面\Detection.exe')
+add_to_registry('.ctrt', '使用Detection打开', r'D:\桌面\Detection.exe')
