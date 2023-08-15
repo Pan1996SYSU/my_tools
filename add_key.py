@@ -1,9 +1,10 @@
 import winreg
 
+
 def add_to_registry(extension, name, command):
     # 获取 HKEY_CURRENT_USER\Software\Classes 所对应的键
     classes_key = winreg.OpenKey(
-    winreg.HKEY_CURRENT_USER, 'Software\Classes', 0, winreg.KEY_WRITE)
+        winreg.HKEY_CURRENT_USER, 'Software\Classes', 0, winreg.KEY_WRITE)
 
     # 创建指定扩展名的键
     extension_key = winreg.CreateKey(classes_key, extension)
@@ -33,6 +34,7 @@ def add_to_registry(extension, name, command):
     winreg.CloseKey(shell_key)
     winreg.CloseKey(file_type_key)
     winreg.CloseKey(classes_key)
+
 
 add_to_registry('.pth', '使用Detection打开', r'D:\桌面\Detection.exe')
 add_to_registry('.cpth', '使用Detection打开', r'D:\桌面\Detection.exe')
