@@ -1,17 +1,15 @@
 import winreg
 
-
 def add_to_registry(extension, name, command):
     # 获取 HKEY_CURRENT_USER\Software\Classes 所对应的键
     classes_key = winreg.OpenKey(
-        winreg.HKEY_CURRENT_USER, 'Software\Classes', 0, winreg.KEY_WRITE)
+    winreg.HKEY_CURRENT_USER, 'Software\Classes', 0, winreg.KEY_WRITE)
 
     # 创建指定扩展名的键
     extension_key = winreg.CreateKey(classes_key, extension)
 
     # 获取文件类型的默认值，例如 ".pth" 所对应的默认值可能是 "Python.File"
     file_type, _ = winreg.QueryValueEx(extension_key, '')
-
     # 关闭 "extension" 键
     winreg.CloseKey(extension_key)
 
@@ -24,10 +22,10 @@ def add_to_registry(extension, name, command):
     # 创建命令项
     app_key = winreg.CreateKey(shell_key, name)
     command_key = winreg.CreateKey(app_key, 'command')
+    winreg.SetValueEx(app_key, 'Icon', 0, winreg.REG_SZ, command)
 
     # 设置命令项的默认值
     winreg.SetValueEx(command_key, '', 0, winreg.REG_SZ, command)
-    winreg.SetValueEx(command_key, "DefaultIcon", 0, winreg.REG_SZ, r"D:\桌面\391175.png")
 
     # 关闭所有打开的键
     winreg.CloseKey(command_key)
@@ -36,8 +34,6 @@ def add_to_registry(extension, name, command):
     winreg.CloseKey(file_type_key)
     winreg.CloseKey(classes_key)
 
-
-# 例如，将 ".pth"、".cpth" 和 ".ctrt" 文件的右键菜单设置为 "Open with myapp"
 add_to_registry('.pth', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
 add_to_registry('.cpth', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
 add_to_registry('.ctrt', '使用Detection打开', r'D:\桌面\Detection.exe "%1"')
