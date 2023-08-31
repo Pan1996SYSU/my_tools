@@ -4,8 +4,8 @@ import cv2
 from sonic.utils_func import cv_img_read, glob_extensions, make_dirs
 
 
-input_path = r"Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230823\1 (K34129950)"
-output_path = r"Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230823\1 (K34129950)-pwz已处理"
+input_path = r"D:\桌面\新建文件夹"
+output_path = r"D:\桌面\新建文件夹"
 # 读取图片
 img_path_list = glob_extensions(input_path)
 
