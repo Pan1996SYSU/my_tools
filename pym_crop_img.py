@@ -2,7 +2,7 @@ from pathlib import Path
 
 import cv2
 import halcon as ha
-from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
+from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
 input_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230706-验证'
 output_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230706-验证-pwz已处理'
@@ -28,7 +28,7 @@ for i, img_path in enumerate(img_path_list):
         row1, column1, row2, column2 = ha.smallest_rectangle1(SelectedRegions)
 
         if len(row1) == 2:
-            img = cv_img_read(img_path)
+            img = cv2_read_img(img_path)
             h, w = img.shape[:2]
 
             if row1[0] < column1[1]:
@@ -49,7 +49,7 @@ for i, img_path in enumerate(img_path_list):
             make_dirs(output_img_path.parent)
             cv2.imencode(Path(img_path).suffix, res)[1].tofile(output_img_path)
         elif len(row1) == 1:
-            img = cv_img_read(img_path)
+            img = cv2_read_img(img_path)
             h, w = img.shape[:2]
 
             x1 = round(column1[0])

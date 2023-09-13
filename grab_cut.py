@@ -2,7 +2,7 @@ import time
 
 import cv2
 import numpy as np
-from sonic.utils_labelme import cv_imread
+from sonic.utils_labelme import cv2_read_img
 
 img_src = r"D:\桌面\sth\Cam_3-01-05 14_33_39_970_NG.bmp"
 
@@ -79,7 +79,7 @@ def mouse_event2(event, x, y, flags, param):
 
 
 if __name__ == '__main__':
-    img = cv_imread(img_src)
+    img = cv2_read_img(img_src)
     if img is not None:
       g_img = GrabCut(img)
 

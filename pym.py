@@ -2,7 +2,7 @@ from pathlib import Path
 
 import cv2
 import halcon as ha
-from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
+from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
 img_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-原图\20230904\0904'
 output_path = r'D:\桌面\img'
@@ -31,7 +31,7 @@ for path in img_path_list:
         y2 = Row2[0]
         x2 = Column2[0]
 
-        img = cv_img_read(path)
+        img = cv2_read_img(path)
         crop_img = img[y1:y2, x1:x2].copy()
 
         path = Path(path)

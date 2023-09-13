@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import cv2
-from sonic.utils_func import cv_img_read, glob_extensions, make_dirs
+from sonic.utils_func import cv2_read_img, glob_extensions, make_dirs
 
 
 input_path = r"D:\桌面\新建文件夹"
@@ -11,7 +11,7 @@ img_path_list = glob_extensions(input_path)
 
 for img_path in img_path_list:
     try:
-        image = cv_img_read(img_path)
+        image = cv2_read_img(img_path)
         img_path = Path(img_path)
 
         # 将图片转换为灰度图像

@@ -2,7 +2,7 @@ import cv2
 import halcon as ha
 import numpy as np
 from scipy.spatial import distance
-from sonic.utils_func import cv_img_read, glob_extensions
+from sonic.utils_func import cv2_read_img, glob_extensions
 
 input_path = r"D:\桌面\20220930-NG图"
 t_img_path = r"D:\桌面\20220930-NG图\NG_Image5\WeldSpecial\Right_Weld2D\L\0JBMBPE6M106EDC9Y3300060_0022_10-06-11-22_Lum.tiff"
@@ -37,7 +37,7 @@ if __name__ == '__main__':
             SearchImage, model_ID, -180, 180, 1, 1, 0.5, 4, 0, 'least_squares',
             0, 0.9)
 
-        img = cv_img_read(img_path)
+        img = cv2_read_img(img_path)
         h, w = img.shape[:2]
         # config可自定义
         p = [(w // 2, h // 2)]

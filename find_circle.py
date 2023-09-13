@@ -2,7 +2,7 @@ from pathlib import Path
 
 import cv2
 import halcon as ha
-from sonic.utils_func import glob_extensions, cv_img_read, make_dirs
+from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
 r = 100
 
@@ -30,7 +30,7 @@ for img_path in img_path_list:
         y2 = round(Row2[0]) + r
         x2 = round(Column2[0]) + r
 
-        img = cv_img_read(img_path)
+        img = cv2_read_img(img_path)
         h, w = img.shape[:2]
         res_img = img[max(0, y1):min(h, y2),
                       max(0, x1):min(w, x2)].copy()
