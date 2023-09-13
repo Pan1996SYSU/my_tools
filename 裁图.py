@@ -1,37 +1,38 @@
 from pathlib import Path
-
+import numpy as np
 import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-img_path = r'D:\桌面\新建文件夹'
+img_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\0-清洗机\1-原图\20230910-小卷2\小卷2\fm'
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(img_path)
+
+pad = 3
 
 n = len(img_path_list)
 
 for i, path in enumerate(img_path_list):
     try:
-        print(f'{round(i / n, 4) * 100}%')
+        print(f'{(round(i / n, 4)) * 100}%')
         Image = ha.read_image(path)
-        Regions = ha.threshold(Image, 120, 255)
+        Regions = ha.threshold(Image, 150, 255)
         ConnectedRegions = ha.connection(Regions)
-        SelectedRegions = ha.select_shape(ConnectedRegions, 'height', 'and', 3000, 9999)
-        row, column, length1, length2 = ha.smallest_rectangle1(SelectedRegions)
-        if len(row) != 2 or len(column) != 2 or len(length1) != 2 or len(length2) != 2:
+        SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and', 1500, 99999)
+        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 50, 99999)
+        row, column, length1, length2 = ha.smallest_rectangle1(SelectedRegions1)
+        if len(row) < 2 or len(column) < 2 or len(length1) < 2 or len(length2) < 2:
             print(path)
             continue
 
-        if column[0] < column[1]:
-            x1 = column[0]
-            x2 = length2[1]
-        else:
-            x1 = column[1]
-            x2 = length2[0]
+        x1 = round(np.array(column).min() + pad)
+        x2 = round(np.array(length2).max() - pad)
+        y1 = round(np.array(length1).min() + pad)
+        y2 = round(np.array(row).max() - pad)
 
         img = cv2_read_img(path)
-        crop_img = img[:, x1:x2].copy()
+        crop_img = img[y1:y2, x1:x2].copy()
 
         path = Path(path)
         output_img_path = Path(output_path, path.relative_to(Path(img_path)))
