@@ -5,7 +5,7 @@ import halcon as ha
 import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-img_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\0-清洗机\1-原图\20230910-小卷2\小卷2\fm'
+img_path = r'D:\桌面\20230918-1.3间距'
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(img_path)
@@ -18,12 +18,12 @@ for i, path in enumerate(img_path_list):
     try:
         print(f'{(round(i / n, 4)) * 100}%')
         Image = ha.read_image(path)
-        Regions = ha.threshold(Image, 150, 255)
+        Regions = ha.threshold(Image, 180, 255)
         ConnectedRegions = ha.connection(Regions)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
-                                          1500, 99999)
+                                          800, 99999)
         SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and',
-                                           50, 99999)
+                                           150, 99999)
         row, column, length1, length2 = ha.smallest_rectangle1(
             SelectedRegions1)
         if len(row) < 2 or len(column) < 2 or len(length1) < 2 or len(
