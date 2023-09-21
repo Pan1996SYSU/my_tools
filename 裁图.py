@@ -5,7 +5,7 @@ import halcon as ha
 import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-img_path = r'D:\桌面\20230918-1.3间距'
+img_path = r'Z:\2-现场取图\CYS.230413-分条机增加外观检测ATL-FTJJC-23023\大图-检测区域\220230921'
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(img_path)
@@ -19,11 +19,12 @@ for i, path in enumerate(img_path_list):
         print(f'{(round(i / n, 4)) * 100}%')
         Image = ha.read_image(path)
         Regions = ha.threshold(Image, 180, 255)
-        ConnectedRegions = ha.connection(Regions)
+        RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
+        ConnectedRegions = ha.connection(RegionOpening)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
                                           800, 99999)
         SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and',
-                                           150, 99999)
+                                           5, 99999)
         row, column, length1, length2 = ha.smallest_rectangle1(
             SelectedRegions1)
         if len(row) < 2 or len(column) < 2 or len(length1) < 2 or len(
@@ -31,8 +32,8 @@ for i, path in enumerate(img_path_list):
             print(path)
             continue
 
-        x1 = round(np.array(column).min() + pad)
-        x2 = round(np.array(length2).max() - pad)
+        x1 = round(np.array(column).min() + pad*5)
+        x2 = round(np.array(length2).max() - pad*5)
         y1 = round(np.array(length1).min() + pad)
         y2 = round(np.array(row).max() - pad)
 
