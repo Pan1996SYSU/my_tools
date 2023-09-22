@@ -16,15 +16,15 @@ n = len(img_path_list)
 
 for i, path in enumerate(img_path_list):
     try:
-        print(f'{round(i / n * 100, 2)}%')
+        print(f'{round((i+1) / n * 100, 2)}%')
         Image = ha.read_image(path)
         Regions = ha.threshold(Image, 180, 255)
         # RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
         ConnectedRegions = ha.connection(Regions)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
                                           800, 99999)
-        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and',
-                                           5, 99999)
+        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 5,
+                                           99999)
         row, column, length1, length2 = ha.smallest_rectangle1(
             SelectedRegions1)
         if len(row) < 2 or len(column) < 2 or len(length1) < 2 or len(
