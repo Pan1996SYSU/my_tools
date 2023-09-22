@@ -16,7 +16,7 @@ n = len(img_path_list)
 
 for i, path in enumerate(img_path_list):
     try:
-        print(f'{(round(i / n, 4)) * 100}%')
+        print(f'{round(i / n * 100, 2)}%')
         Image = ha.read_image(path)
         Regions = ha.threshold(Image, 180, 255)
         # RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
