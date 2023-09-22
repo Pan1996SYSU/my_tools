@@ -19,6 +19,7 @@ class ColorChangeApp(QWidget):
         self.green_widget = ColorWidget("green", self)
         self.current_widget = self.blue_widget
 
+
         self.initUI()
 
     def initUI(self):
