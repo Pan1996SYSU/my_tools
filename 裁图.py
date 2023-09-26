@@ -5,7 +5,7 @@ import halcon as ha
 import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-img_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20230919-条痕'
+img_path = r'D:\桌面\20230925'
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(img_path)
@@ -28,6 +28,7 @@ for i, path in enumerate(img_path_list):
         row, column, length1, length2 = ha.smallest_rectangle1(
             SelectedRegions1)
         if len(row) < 2 or len(column) < 2 or len(length1) < 2 or len(
+
                 length2) < 2:
             print(path)
             continue
