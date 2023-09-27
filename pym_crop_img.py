@@ -5,7 +5,7 @@ import halcon as ha
 import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r'D:\桌面\20230925'
+input_path = r'D:\桌面\20230926'
 output_path = r'D:\桌面\img'
 
 padding = 5
@@ -24,10 +24,14 @@ for i, img_path in enumerate(img_path_list):
         Regions = ha.threshold(Image, 160, 255)
         ConnectedRegions = ha.connection(Regions)
         SelectedRegions = ha.select_shape(
-            ConnectedRegions, 'height', 'and', 500, 10000)
+            ConnectedRegions, 'height', 'and', 2000, 10000)
         row1, column1, row2, column2 = ha.smallest_rectangle1(SelectedRegions)
-        x1 = np.array(column1).min()
-        x2 = np.array(column2).max()
+        sorted_list = sorted(column1 + column2)
+        if len(sorted_list) != 4:
+            print(img_path)
+            continue
+        x1 = sorted_list[1]
+        x2 = sorted_list[2]
         img = cv2_read_img(img_path)
         result = img[:, x1+padding:x2-padding].copy()
         img_path = Path(img_path)
