@@ -25,7 +25,7 @@ class CenterPointWindow(QMainWindow):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
 
-        # 绘制一个红色的点
+        # 绘制一个白色的点
         painter.setPen(Qt.NoPen)
         painter.setBrush(QColor(255, 255, 255))
         painter.drawEllipse(self.rect())
