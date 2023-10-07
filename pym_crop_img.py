@@ -4,8 +4,8 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r'Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230926\相机1'
-output_path = r'Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230926-pwz已处理\相机1'
+input_path = r'Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230926\相机0'
+output_path = r'Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230926-pwz已处理\相机0'
 
 padding = 50
 
@@ -37,7 +37,7 @@ for i, img_path in enumerate(img_path_list):
         x2 = sorted_col[3]
         img = cv2_read_img(img_path)
         h, w = img.shape[:2]
-        result = img[:, 0:x2].copy()
+        result = img[:, x1:w].copy()
         img_path = Path(img_path)
         output_img_path = Path(output_path,
                                img_path.relative_to(Path(input_path)))
