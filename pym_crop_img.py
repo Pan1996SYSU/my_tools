@@ -4,8 +4,8 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r'D:\桌面\20230923'
-output_path = r'D:\桌面\img'
+input_path = r'Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230926\相机1'
+output_path = r'Z:\2-现场取图\CYS.230621-雅策瑞凹版涂布\大图原图\20230926-pwz已处理\相机1'
 
 padding = 50
 
@@ -22,8 +22,9 @@ for i, img_path in enumerate(img_path_list):
         Image = ha.read_image(img_path)
         Regions = ha.threshold(Image, 160, 255)
         ConnectedRegions = ha.connection(Regions)
-        SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
-                                          2000, 10000)
+        SelectedRegions = ha.select_shape(ConnectedRegions, 'height', 'and',
+                                          3000, 10000)
+        # SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 50, 99999)
         row1, column1, row2, column2 = ha.smallest_rectangle1(SelectedRegions)
         sorted_list = sorted(row1 + row2)
         sorted_col = sorted(column1 + column2)
@@ -32,10 +33,11 @@ for i, img_path in enumerate(img_path_list):
             continue
         y1 = sorted_list[1]
         y2 = sorted_list[2]
-        x1 = sorted_col[1]
-        x2 = sorted_col[2]
+        x1 = sorted_col[0]
+        x2 = sorted_col[3]
         img = cv2_read_img(img_path)
-        result = img[y1 + padding:y2 - padding, x1:x2].copy()
+        h, w = img.shape[:2]
+        result = img[:, 0:x2].copy()
         img_path = Path(img_path)
         output_img_path = Path(output_path,
                                img_path.relative_to(Path(input_path)))
