@@ -17,8 +17,8 @@ aa = n // 100
 
 for i, img_path in enumerate(img_path_list):
     try:
-        # if i % aa == 0:
-        #     print(f'{round(float(i/n), 2)*100}%')
+        if i % aa == 0:
+            print(f'{round(float(i/n), 2)*100}%')
         Image = ha.read_image(img_path)
         Regions = ha.threshold(Image, 160, 255)
         ConnectedRegions = ha.connection(Regions)
