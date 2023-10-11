@@ -4,8 +4,8 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-# input_path = r"Z:\2-现场取图\CYS.230802-W1阳极ASC1分条CCD升级改造适应LDP工2\1-大图原图\20231010"
-# output_path = r'Z:\2-现场取图\CYS.230802-W1阳极ASC1分条CCD升级改造适应LDP工2\1-大图原图\20231010-pwz已处理'
+input_path = r"D:\桌面\OKImages"
+output_path = r'D:\桌面\img'
 
 padding = 10
 
