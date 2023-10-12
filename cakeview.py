@@ -27,8 +27,7 @@ class CustomLegendItem(QGraphicsWidget):
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(Qt.NoPen)
         painter.setBrush(self.m_color)
-        painter.drawRect(rect.topLeft().x() + 15,
-                         rect.topLeft().y() + 5, 15, 15)
+        painter.drawRect(int(rect.topLeft().x()) + 15, int(rect.topLeft().y())+5, 15, 15)
 
         painter.setPen(Qt.white)
         painter.setFont(self.font())
@@ -39,7 +38,7 @@ class CustomLegendItem(QGraphicsWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     series = QPieSeries()
-    series.append("online devices", 1)
+    series.append("online devices", 2)
     series.append("offline devices", 10)
 
     chart = QChart()
