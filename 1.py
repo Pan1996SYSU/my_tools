@@ -1,51 +1,39 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
-from PyQt5.QtGui import QColor, QPalette
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
+from PyQt5.QtGui import QPainter, QMouseEvent
+from PyQt5.QtCore import Qt
 
 
-class ColorWidget(QWidget):
-    def __init__(self, color, parent=None):
-        super().__init__(parent)
-        self.setAutoFillBackground(True)
-        palette = self.palette()
-        palette.setColor(QPalette.Window, QColor(color))
-        self.setPalette(palette)
+class CustomChartView(QChartView):
+    def __init__(self, series, parent=None):
+        super(CustomChartView, self).__init__(parent)
+        self.series = series
 
-class ColorChangeApp(QWidget):
-    def __init__(self):
-        super().__init__()
-
-        self.blue_widget = ColorWidget("blue", self)
-        self.green_widget = ColorWidget("green", self)
-        self.current_widget = self.blue_widget
+    def mouseMoveEvent(self, event: QMouseEvent):
+        super(CustomChartView, self).mouseMoveEvent(event)
+        for slice in self.series.slices():
+            if slice.contains(self.chart().mapToValue(event.pos())):
+                slice.setToolTip(f"{slice.label()} : {slice.value()}")
+            else:
+                slice.setToolTip("")
 
 
-        self.initUI()
+if __name__ == "__main__":
+    app = QApplication([])
 
-    def initUI(self):
-        self.setWindowTitle('Color Change App')
+    series = QPieSeries()
+    series.append("Slice 1", 10)
+    series.append("Slice 2", 20)
+    series.append("Slice 3", 30)
 
-        self.button = QPushButton('Change Color', self)
-        self.button.clicked.connect(self.toggleColor)
+    chart = QChart()
+    chart.addSeries(series)
+    chart.createDefaultAxes()
+    chart.setAnimationOptions(QChart.SeriesAnimations)
 
-        self.layout = QVBoxLayout()
-        self.layout.addWidget(self.blue_widget)
-        self.layout.addWidget(self.green_widget)
-        self.layout.addWidget(self.button)
-        self.setLayout(self.layout)
+    chart_view = CustomChartView(series)
+    chart_view.setRenderHint(QPainter.Antialiasing)
+    chart_view.setChart(chart)
+    chart_view.show()
 
-    def toggleColor(self):
-        if self.current_widget == self.blue_widget:
-            self.blue_widget.hide()
-            self.green_widget.show()
-            self.current_widget = self.green_widget
-        else:
-            self.green_widget.hide()
-            self.blue_widget.show()
-            self.current_widget = self.blue_widget
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = ColorChangeApp()
-    window.show()
-    sys.exit(app.exec_())
+    app.exec_()

@@ -5,8 +5,8 @@ import halcon as ha
 import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r"D:\桌面\OKImages"
-output_path = r'D:\桌面\img'
+input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231017"
+output_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图-pwz已处理\20231017'
 
 img_path_list = glob_extensions(input_path)
 
@@ -22,8 +22,8 @@ for i, path in enumerate(img_path_list):
         RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
         ConnectedRegions = ha.connection(RegionOpening)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
-                                          4000, 99999)
-        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 50,
+                                          1500, 99999)
+        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 100,
                                            99999)
         row, column, length1, length2 = ha.smallest_rectangle1(
             SelectedRegions1)
