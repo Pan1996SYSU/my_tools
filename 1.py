@@ -1,39 +1,30 @@
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
-from PyQt5.QtGui import QPainter, QMouseEvent
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QLabel
 
 
-class CustomChartView(QChartView):
-    def __init__(self, series, parent=None):
-        super(CustomChartView, self).__init__(parent)
-        self.series = series
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-    def mouseMoveEvent(self, event: QMouseEvent):
-        super(CustomChartView, self).mouseMoveEvent(event)
-        for slice in self.series.slices():
-            if slice.contains(self.chart().mapToValue(event.pos())):
-                slice.setToolTip(f"{slice.label()} : {slice.value()}")
-            else:
-                slice.setToolTip("")
+        self.tab_widget = QTabWidget(self)
+        self.setCentralWidget(self.tab_widget)
+
+        self.tab1 = QWidget(self)
+        self.tab2 = QWidget(self)
+
+        self.tab_widget.addTab(self.tab1, "Tab 1")
+        self.tab_widget.addTab(self.tab2, "Tab 2")
+
+        self.tab1_layout = QVBoxLayout(self.tab1)
+        self.tab1_label = QLabel("This is Tab 1", self.tab1)
+        self.tab1_layout.addWidget(self.tab1_label)
+
+        self.tab2_layout = QVBoxLayout(self.tab2)
+        self.tab2_label = QLabel("This is Tab 2", self.tab2)
+        self.tab2_layout.addWidget(self.tab2_label)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication([])
-
-    series = QPieSeries()
-    series.append("Slice 1", 10)
-    series.append("Slice 2", 20)
-    series.append("Slice 3", 30)
-
-    chart = QChart()
-    chart.addSeries(series)
-    chart.createDefaultAxes()
-    chart.setAnimationOptions(QChart.SeriesAnimations)
-
-    chart_view = CustomChartView(series)
-    chart_view.setRenderHint(QPainter.Antialiasing)
-    chart_view.setChart(chart)
-    chart_view.show()
-
+    window = MainWindow()
+    window.show()
     app.exec_()
