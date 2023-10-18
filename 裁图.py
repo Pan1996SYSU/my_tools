@@ -6,7 +6,7 @@ import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
 input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231017"
-output_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图-pwz已处理\20231017'
+output_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231017-pwz已处理'
 
 img_path_list = glob_extensions(input_path)
 
@@ -18,28 +18,28 @@ for i, path in enumerate(img_path_list):
     try:
         print(f'{round((i+1) / n * 100, 2)}%')
         Image = ha.read_image(path)
-        Regions = ha.threshold(Image, 127, 255)
-        RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
-        ConnectedRegions = ha.connection(RegionOpening)
+        Regions = ha.threshold(Image, 190, 255)
+        # RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
+        ConnectedRegions = ha.connection(Regions)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
-                                          1500, 99999)
-        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 100,
+                                          3000, 99999)
+        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 60,
                                            99999)
-        row, column, length1, length2 = ha.smallest_rectangle1(
+        row1, column1, row2, column2 = ha.smallest_rectangle1(
             SelectedRegions1)
-        if len(row) < 2 or len(column) < 2 or len(length1) < 2 or len(
 
-                length2) < 2:
+        sorted_list = sorted(row1 + row2)
+        sorted_col = sorted(column1 + column2)
+        if len(sorted_list) != 4:
             print(path)
             continue
-
-        x1 = round(np.array(column).min())
-        x2 = round(np.array(length2).max())
-        y1 = round(np.array(length1).min())
-        y2 = round(np.array(row).max())
+        y1 = sorted_list[1]
+        y2 = sorted_list[2]
+        x1 = sorted_col[1]
+        x2 = sorted_col[2]
 
         img = cv2_read_img(path)
-        crop_img = img[y1+pad*4:y2-pad, x1+pad*4:x2-pad*6].copy()
+        crop_img = img[y1+pad:y2-pad, x1+pad:x2].copy()
 
         path = Path(path)
         output_img_path = Path(output_path, path.relative_to(Path(input_path)))
