@@ -2,11 +2,10 @@ from pathlib import Path
 
 import cv2
 import halcon as ha
-import numpy as np
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r"D:\桌面\0732-1019"
-output_path = r'D:\桌面\img'
+input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231030"
+output_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231030-pwz已处理'
 
 img_path_list = glob_extensions(input_path)
 
@@ -22,11 +21,10 @@ for i, path in enumerate(img_path_list):
         # RegionOpening = ha.opening_rectangle1(Regions, 100, 1)
         ConnectedRegions = ha.connection(Regions)
         SelectedRegions = ha.select_shape(ConnectedRegions, 'width', 'and',
-                                          1500, 99999)
-        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and', 40,
-                                           99999)
-        row1, column1, row2, column2 = ha.smallest_rectangle1(
-            SelectedRegions1)
+                                          1300, 99999)
+        SelectedRegions1 = ha.select_shape(SelectedRegions, 'height', 'and',
+                                           40, 99999)
+        row1, column1, row2, column2 = ha.smallest_rectangle1(SelectedRegions1)
 
         sorted_list = sorted(row1 + row2)
         sorted_col = sorted(column1 + column2)
@@ -39,7 +37,7 @@ for i, path in enumerate(img_path_list):
         x2 = sorted_col[2]
 
         img = cv2_read_img(path)
-        crop_img = img[y1+pad:y2-pad, x1+pad:x2].copy()
+        crop_img = img[y1 + pad:y2 - pad, x1 + pad:x2 - pad].copy()
 
         path = Path(path)
         output_img_path = Path(output_path, path.relative_to(Path(input_path)))

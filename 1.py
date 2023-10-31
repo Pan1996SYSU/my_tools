@@ -1,31 +1,20 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QLabel
+import os
+
+def count_lines(directory):
+    total_lines = 0
+
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".java"):
+                file_path = os.path.join(root, file)
+                with open(file_path, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+                    total_lines += len(lines)
+
+    return total_lines
 
 
-class MainWindow(QMainWindow):
+# 调用函数统计代码行数
+lines_of_code = count_lines(r"D:\桌面\plugin-imagewatch-master")
 
-    def __init__(self):
-        super().__init__()
-
-        self.tab_widget = QTabWidget(self)
-        self.setCentralWidget(self.tab_widget)
-
-        self.tab1 = QWidget(self)
-        self.tab2 = QWidget(self)
-
-        self.tab_widget.addTab(self.tab1, "Tab 1")
-        self.tab_widget.addTab(self.tab2, "Tab 2")
-
-        self.tab1_layout = QVBoxLayout(self.tab1)
-        self.tab1_label = QLabel("This is Tab 1", self.tab1)
-        self.tab1_layout.addWidget(self.tab1_label)
-
-        self.tab2_layout = QVBoxLayout(self.tab2)
-        self.tab2_label = QLabel("This is Tab 2", self.tab2)
-        self.tab2_layout.addWidget(self.tab2_label)
-
-
-if __name__ == '__main__':
-    app = QApplication([])
-    window = MainWindow()
-    window.show()
-    app.exec_()
+print("该路径下的Java项目代码行数为:", lines_of_code)
