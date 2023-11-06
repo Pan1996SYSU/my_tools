@@ -1,20 +1,17 @@
-import os
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtCore import Qt
 
-def count_lines(directory):
-    total_lines = 0
+class MyWidget(QWidget):
+    def __init__(self):
+        super().__init__()
 
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file.endswith(".java"):
-                file_path = os.path.join(root, file)
-                with open(file_path, "r", encoding="utf-8") as f:
-                    lines = f.readlines()
-                    total_lines += len(lines)
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            print("Left button released")
 
-    return total_lines
-
-
-# 调用函数统计代码行数
-lines_of_code = count_lines(r"D:\桌面\plugin-imagewatch-master")
-
-print("该路径下的Java项目代码行数为:", lines_of_code)
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    widget = MyWidget()
+    widget.show()
+    sys.exit(app.exec_())
