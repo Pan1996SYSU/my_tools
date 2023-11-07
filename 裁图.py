@@ -4,7 +4,7 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r"D:\桌面\20231105"
+input_path = r"D:\桌面\20231106"
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(input_path)
