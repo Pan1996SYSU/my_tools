@@ -4,7 +4,7 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231111\非LDP条痕漏杀"
+input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231113"
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(input_path)
