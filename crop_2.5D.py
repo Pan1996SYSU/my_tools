@@ -5,13 +5,13 @@ import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 from sonic.lib.new_project_manager import ProjectManager
 
-input_path = r"Z:\4-标注任务\CYS231007-宁德LST上料视觉检测\20231111\2d"
+input_path = r"Z:\2-现场取图\CYS231007-宁德LST上料视觉检测\20231114"
 output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(input_path)
 n = len(img_path_list)
 manager = ProjectManager()
-manager.update_file_dict('常规2D', img_path_list)
+manager.update_file_dict('常规2.5D', img_path_list)
 
 padding = 100
 max_h = 2600
@@ -20,8 +20,11 @@ for i, img_path in enumerate(img_path_list):
     try:
         print(f'{round((i / n * 100), 2)}%')
         stem = Path(img_path).stem
-        # if '_L5_' not in stem:
-        #     continue
+        parent = Path(img_path).parent.stem
+        if parent == '2d':
+            continue
+        if '_L5_' not in stem:
+            continue
         Image = ha.read_image(img_path)
         Regions = ha.threshold(Image, 61, 255)
         ConnectedRegions = ha.connection(Regions)
@@ -32,11 +35,11 @@ for i, img_path in enumerate(img_path_list):
             continue
 
         y1 = row1[0]
-        y2 = y1 + max_h - 200
+        y2 = row2[0]
         x1 = column1[0]
         x2 = column2[0]
 
-        img_raw_path_list = manager.get_raw_img_list('常规2', img_path)
+        img_raw_path_list = manager.get_raw_img_list('常规2.5D', img_path)
         for img_raw_path in img_raw_path_list:
             try:
                 img = cv2_read_img(img_raw_path)
