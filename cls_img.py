@@ -5,22 +5,21 @@ from pathlib import Path
 import os
 from sonic.utils_func import glob_extensions, make_dirs
 
-img_path = r"X:\2-现场取图\CYS.211117-新能德成品外观检测设备\电芯本体\过漏检-10月21号上线后\过检-10月后\未分"
-output_path = r'X:\2-现场取图\CYS.211117-新能德成品外观检测设备\电芯本体\过漏检-10月21号上线后\过检-10月后\未分-pwz已处理'
+img_path = r"X:\2-现场取图\CYS.211117-新能德成品外观检测设备\电芯本体\过漏检-10月21号上线后\NG-10月后"
+output_path = r'X:\2-现场取图\CYS.211117-新能德成品外观检测设备\电芯本体\过漏检-10月21号上线后\NG-10月后-pwz已处理'
 
 pattern = r'P0(\d)_'
 
 img_path_list = glob_extensions(img_path)
 n = len(img_path_list)
 
-for i, path in enumerate(img_path_list):
+def work(task):
     try:
-        if i % 100 == 0:
-            print(f"{round(i/n*100, 2)}%")
+        path = task.get('img_path', None)
+        if path is None:
+            return
         path_stem = Path(path).stem
         date = re.search(r'(\d{8})-', str(Path(path).parent)).group(1)
-        if date is None:
-            print(123)
         match = re.search(pattern, path_stem)
         x_value = match.group(1)
         parent = Path(path).parent.stem
@@ -32,9 +31,10 @@ for i, path in enumerate(img_path_list):
     except:
         print(path)
 
-# with ThreadPool(processes=16) as pool:
-#     tasks = [{
-#         'img_path': img_path,
-#     } for img_path in img_path_list]
-#     for i, result in enumerate(pool.imap_unordered(work, tasks), n):
-#         print(i)
+with ThreadPool(processes=16) as pool:
+    tasks = [{
+        'img_path': img_path,
+    } for img_path in img_path_list]
+    for i, result in enumerate(pool.imap(work, tasks)):
+        if i % 100 == 0:
+            print(f"{round(i / n * 100, 2)}%")
