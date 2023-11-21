@@ -1,8 +1,9 @@
+import os
 import re
 import shutil
 from multiprocessing.dummy import Pool as ThreadPool
 from pathlib import Path
-import os
+
 from sonic.utils_func import glob_extensions, make_dirs
 
 img_path = r"X:\2-现场取图\CYS.211117-新能德成品外观检测设备\电芯本体\过漏检-10月21号上线后\NG-10月后"
@@ -12,6 +13,7 @@ pattern = r'P0(\d)_'
 
 img_path_list = glob_extensions(img_path)
 n = len(img_path_list)
+
 
 def work(task):
     try:
@@ -30,6 +32,7 @@ def work(task):
         shutil.copy(path, output_img_path)
     except:
         print(path)
+
 
 with ThreadPool(processes=16) as pool:
     tasks = [{
