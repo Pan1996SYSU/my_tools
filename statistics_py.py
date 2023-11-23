@@ -6,7 +6,7 @@ avg_file_num = 0  # 平均行数
 max_line_num = 0  # 最大行数
 min_line_num = 999999  # 最小行数
 
-for base_path, folder_list, file_list in os.walk(r'D:\桌面\labelme'):
+for base_path, folder_list, file_list in os.walk(r'D:\桌面\information_retrieval_software'):
 
     total_file_num += len(file_list)
     # 遍历文件列表
