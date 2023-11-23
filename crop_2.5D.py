@@ -5,8 +5,8 @@ import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 from sonic.lib.new_project_manager import ProjectManager
 
-input_path = r"Z:\2-现场取图\CYS231007-宁德LST上料视觉检测\20231120"
-output_path = r'Z:\4-标注任务\CYS231007-宁德LST上料视觉检测\20231120'
+input_path = r"Z:\2-现场取图\CYS231007-宁德LST上料视觉检测\20231122\解压后\光度立体"
+output_path = r'Z:\4-标注任务\CYS231007-宁德LST上料视觉检测\20231122'
 
 img_path_list = glob_extensions(input_path)
 n = len(img_path_list)
