@@ -4,8 +4,8 @@ import cv2
 import halcon as ha
 from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 
-input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231124\误判"
-output_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231124\误判-pwz已处理'
+input_path = r"Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231127"
+output_path = r'Z:\2-现场取图\CYS.230732-01-激光清洗机LDP\1-原图\20231127-pwz已处理'
 
 img_path_list = glob_extensions(input_path)
 
@@ -38,7 +38,7 @@ for i, path in enumerate(img_path_list):
         y2 = sorted_list[2]
         x1 = sorted_col[1]
         x2 = sorted_col[2]
-        crop_img = img[y1:y2, x1 + pad:x2 - pad].copy()
+        crop_img = img[y1 + pad:y2, x1 + pad:x2 - pad].copy()
         path = Path(path)
         output_img_path = Path(output_path, path.relative_to(Path(input_path)))
         make_dirs(output_img_path.parent)

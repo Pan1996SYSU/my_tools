@@ -6,7 +6,7 @@ from sonic.utils_func import glob_extensions, cv2_read_img, make_dirs
 from sonic.lib.new_project_manager import ProjectManager
 
 input_path = r"Z:\4-标注任务\CYS231007-宁德LST上料视觉检测\20231129\填充后"
-output_path = r'Z:\4-标注任务\CYS231007-宁德LST上料视觉检测\20231129\填充后-pwz已处理'
+output_path = r'D:\桌面\img'
 
 img_path_list = glob_extensions(input_path)
 n = len(img_path_list)
@@ -15,10 +15,11 @@ manager.update_file_dict('常规2.5D', img_path_list)
 
 padding = 100
 max_h = 2600
+ratio = 1.244
 
 for i, img_path in enumerate(img_path_list):
     try:
-        print(f'{round((i / n * 100), 2)}%')
+        # print(f'{round((i / n * 100), 2)}%')
         stem = Path(img_path).stem
         parent = Path(img_path).parent.stem
         # if parent == '2d':
@@ -26,18 +27,18 @@ for i, img_path in enumerate(img_path_list):
         if '_L5_' not in stem:
             continue
         Image = ha.read_image(img_path)
-        Regions = ha.threshold(Image, 61, 255)
+        Regions = ha.threshold(Image, 200, 255)
         ConnectedRegions = ha.connection(Regions)
-        SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 4000000, 9999999)
+        SelectedRegions = ha.select_shape(ConnectedRegions, 'area', 'and', 3000000, 9999999)
         row1, column1, row2,column2 = ha.smallest_rectangle1(SelectedRegions)
         if len(row1) != 1:
             print(img_path)
             continue
 
-        y1 = row1[0]
-        y2 = row2[0]
         x1 = column1[0]
         x2 = column2[0]
+        y1 = row1[0]
+        y2 = round(y1 + (x2 - x1) / ratio)
 
         img_raw_path_list = manager.get_raw_img_list('常规2.5D', img_path)
         for img_raw_path in img_raw_path_list:
