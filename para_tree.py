@@ -34,7 +34,7 @@ class MyListParameter(pTypes.ListParameter):
     def setLimits(self, limits):
         limits.clear()
         for child in self.childs:
-            limits.append(child.name())
+            limits.append(child.title())
         super().setLimits(limits)
 
 
@@ -48,31 +48,24 @@ if __name__ == '__main__':
             'children': [
                 {
                     'name': 'str',
+                    'title': '缩放系数',
                     'type': 'str',
                     'value': 'default value'
                 }, {
                     'name': 'int',
+                    'title': '缩放系数2',
                     'type': 'int',
                     'value': 0
                 }, {
                     'name': 'float',
+                    'title': '缩放系数3',
                     'type': 'float',
                     'value': 1.0
                 }, {
                     'name': 'str2',
+                    'title': '缩放系数4',
                     'type': 'str',
                     'value': 'fuck'
-                }
-            ],
-            'children2': [
-                {
-                    'name': 'str',
-                    'type': 'str',
-                    'value': 'default value'
-                }, {
-                    'name': 'int',
-                    'type': 'int',
-                    'value': 0
                 }
             ],
         }
